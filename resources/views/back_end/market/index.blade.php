@@ -3,7 +3,14 @@
 @section('title') 
 Category Show 
 @endsection
-
+<style>
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1d3268 !important;
+    border-color: #1d3268 !important;
+}
+</style>
 @section('body')
 
 <div class="container mt-3">
@@ -19,7 +26,7 @@ Category Show
 @endif
 <div class="lead pb-2">
             Add New Market
-            <a href="{{ route('market.create') }}" class="btn btn-primary btn-sm float-right">Add Market</a>
+            <a href="{{ route('market.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Market</a>
         </div>
 <div class="table-responsive">
   <table id="myDataTable" class="table table-striped">
@@ -62,8 +69,8 @@ Category Show
         <td>{{$data->active}}</td>
         <td>{{$data->available_for_delivery}}</td>
         <td>
-<a href="{{ url('backend/market/edit',$data->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a> &nbsp;&nbsp;
-<a href="{{ route('market.delete',$data->id)}}"><span class="text-danger"><i class="fa fa-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{ url('backend/market/edit',$data->id) }}"><i class="bi bi-pen" aria-hidden="true"></i></a> &nbsp;&nbsp;
+<a href="{{ route('market.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
 @endforeach
 </td>
       </tr>

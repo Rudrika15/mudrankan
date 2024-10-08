@@ -1,13 +1,13 @@
 
 @extends('back_end.layout.layout')
 @section('title') 
-Vouchar Create 
+Vouchar Edit 
 @endsection
 
 @section('body')
 
 <div class="container mt-3">
-  <h2>Vouchar Create</h2>
+  <h2>Vouchar edit</h2>
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -16,7 +16,7 @@ Vouchar Create
     @endif
       
     <div class="d-flex flex-row-reverse">
-      <a href="{{route('voucharmaster.show')}}" class="btn btn-primary">{{__('Back')}} </a>    
+      <a href="{{route('voucharmaster.show')}}" class="btn text-white" style="background-color: #e76a35">{{__('Back')}} </a>    
     </div>
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
@@ -63,7 +63,7 @@ Vouchar Create
     <input type="text" class="form-control" id="vouchar_status" value="{{$voucharmaster->vouchar_status}}" placeholder="Enter vouchar_status" name="vouchar_status">
     </div>
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn text-white" style="background-color: #1d3268">Submit</button>
   </form>
 </div>
 

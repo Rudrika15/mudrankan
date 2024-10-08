@@ -27,10 +27,16 @@ class LoginController extends Controller
     {
         $credentials = $request->getCredentials();
 
-        if(!Auth::validate($credentials)):
-            return redirect()->to('/backend/login')
-                ->withErrors(trans('auth.failed'));
-        endif;
+        if(!Auth::validate($credentials)){
+            
+             return redirect()->back()
+            ->withInput() 
+            ->withErrors(['auth_failed' => 'These credentials do not match our records.']);
+        }
+    
+        //     return redirect()->to('/backend/login')
+        //         ->withErrors(['auth.failed' => 'These credentials do not match our records.']);
+        // endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 

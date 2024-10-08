@@ -3,7 +3,15 @@
 @section('title') 
 Option show 
 @endsection
+<style>
+    .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1d3268 !important;
+    border-color: #1d3268 !important;
+}
 
+</style>
 @section('body')
 
 <div class="container mt-3">
@@ -19,7 +27,7 @@ Option show
 @endif
 <div class="lead pb-2">
             Add New Option
-            <a href="{{ route('option.create') }}" class="btn btn-primary btn-sm float-right">Add Option</a>
+            <a href="{{ route('option.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Option</a>
         </div>
 <div class="table-responsive">
   <table id="myDataTable" class="table table-striped">
@@ -45,8 +53,8 @@ Option show
         <td >{{$data->oname}}</td>
         
         <td>
-<a href="{{url('backend/option/edit',$data->id)}}"><i class="fa fa-edit" aria-hidden="true"></i></a>   &nbsp;&nbsp;
-<a href="{{ route('option.delete',$data->id)}}"><span class="text-danger"><i class="fa fa-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{url('backend/option/edit',$data->id)}}"><i class="bi bi-pen" aria-hidden="true"></i></a>   &nbsp;&nbsp;
+<a href="{{ route('option.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
 @endforeach
 </td>
       </tr>

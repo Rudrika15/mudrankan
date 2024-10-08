@@ -20,13 +20,19 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
-<body>
+<body style="background-color: #f6f9ff">
 
 
   <style>
     /* CSS */
 
+.user{
+  color: black;
 
+}
+.navbar{
+  background-color: white
+}
     .sidebar {
       height: 100vh;
       width: 250px;
@@ -35,7 +41,7 @@
       top: 0;
       padding-top: 40px;
       box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
-      background-color: rgba(0, 0, 0, .03);
+      background-color: white;
     }
 
     .sidebar div {
@@ -44,6 +50,9 @@
       font-size: 20px;
       display: block;
     }
+    .icon{
+      color: #e76a35
+    }
 
     .body-text {
       margin-left: 250px;
@@ -51,16 +60,17 @@
     }
 
     .sidebar a {
-      color: gray;
+      color: black;
       text-decoration: none;
     }
+    
   </style>
 
   <!-- HTML -->
 
   <!-- navigation bar -->
 
-  <nav class="navbar navbar-expand-lg bg-light  " style="border-bottom:1px solid rgba(0,0,0,.08)">
+  <nav class="navbar navbar-expand-lg" style="border-bottom:1px solid rgba(0,0,0,.08)">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     </button>
@@ -73,7 +83,7 @@
         <ul class="navbar-nav me-5">
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            <a class="user nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               {{auth()->user()->firstName}}<i class="bi bi-person-circle ms-1"></i>
             </a>
@@ -99,46 +109,64 @@
   <!-- end navigation -->
 
   <!-- sidebar -->
-  <div class="sidebar bg-light">
-    <div class="border border-4" style="font-weight: 500; color: gray; font-size: 180%;"><i class="bi bi-cart4"></i>
+  <div class="sidebar">
+    <div class="border border-4" style="font-weight: 500; color:black; font-size: 180%;"><i class="bi bi-cart4 icon"></i>
       E-Commerce</div>
-    <div><a href="{{route('home.index')}}"><i class="bi bi-house-fill"></i> {{__('Home')}}</a></div>
-    <div><a href="{{route('field.show')}}"><i class="bi bi-list-task"></i> {{__('Field')}}</a></div>
-    <div><a href="{{route('market.show')}}"><i class="bi bi-basket-fill"></i> {{__('Market')}}</a></div>
-    <div><a href="{{route('channel.show')}}"><i class="bi bi-router-fill"></i> {{__('Channel')}}</a></div>
-    <div><a href="{{route('category.show',app()->getLocale())}}"><i class="bi bi-folder-fill"></i>
+    <div><a href="{{route('home.index')}}"><i class="bi bi-house-fill icon"></i> {{__('Home')}}</a></div>
+    <div><a href="{{route('field.show')}}"><i class="bi bi-list-task icon"></i> {{__('Field')}}</a></div>
+    <div><a href="{{route('market.show')}}"><i class="bi bi-basket-fill icon"></i> {{__('Market')}}</a></div>
+    <div><a href="{{route('channel.show')}}"><i class="bi bi-router-fill icon"></i> {{__('Channel')}}</a></div>
+    <div><a href="{{route('category.show',app()->getLocale())}}"><i class="bi bi-folder-fill icon"></i>
         {{__('Category')}}</a></div>
-    <div><a href="{{route('product.show')}}"><i class="bi bi-archive-fill"></i> {{__('Products')}}</a></div>
+    <div><a href="{{route('product.show')}}"><i class="bi bi-archive-fill icon"></i> {{__('Products')}}</a></div>
 
-    <div><a href="{{route('option.show')}}"><i class="bi bi-plus-square"></i> {{__('Option')}}</a></div>
-    <div><a href="{{route('optiongroup.show')}}"> <i class="bi bi-plus-square-fill"></i> {{__('Option Group')}}</a>
+    <div><a href="{{route('option.show')}}"><i class="bi bi-plus-square icon"></i> {{__('Option')}}</a></div>
+    <div><a href="{{route('optiongroup.show')}}"> <i class="bi bi-plus-square-fill icon"></i> {{__('Option Group')}}</a>
     </div>
-    <div><a href="{{route('coupon.show')}}"><i class="bi bi-ticket-detailed"></i> {{__('Coupon')}}</a></div>
-    <div> <a href="{{route('voucharmaster.show')}}"><i class="bi bi-ticket-detailed-fill"></i> {{__('Vouchar')}}</a>
+    <div><a href="{{route('coupon.show')}}"><i class="bi bi-ticket-detailed icon"></i> {{__('Coupon')}}</a></div>
+    <div> <a href="{{route('voucharmaster.show')}}"><i class="bi bi-ticket-detailed-fill icon"></i> {{__('Vouchar')}}</a>
     </div>
 
-    @auth
-    @role("Admin")
-    <div class="text-start me-5">
-      <ul class="navbar-nav me-5">
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-gear-fill"></i> Setting
+@auth
+@role("Admin")
+<div class="text-start me-5">
+  <ul class="navbar-nav me-5">
+    <li class="nav-item dropdown">
+      <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-gear-fill icon"></i> Setting
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li class="dropdown-item">
+          <a href="{{ route('users.index') }}">
+            <i class="bi bi-people-fill icon"></i> Users
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div><a href="{{ route('users.index') }}"><i class="bi bi-people-fill"></i> Users</a></div>
-            <div><a href="{{ route('roles.index') }}"><i class="bi bi-person-check-fill"></i> Roles</a></div>
-            <div><a href="{{ route('permissions.index') }}"><i class="bi bi-incognito"></i> Permissions</a></div>
-            @endrole
-            <div><a href="{{route('slide.show')}}"><i class="bi bi-magic"></i> {{__('Slide')}}</a></div>
-            <div><a href="{{route('currency.show')}}"><i class="bi bi-coin"></i> {{__('Currency')}}</a></div>
-          </ul>
+        </li>
+        <li class="dropdown-item">
+          <a href="{{ route('roles.index') }}">
+            <i class="bi bi-person-check-fill icon"></i> Roles
+          </a>
+        </li>
+        <li class="dropdown-item">
+          <a href="{{ route('permissions.index') }}">
+            <i class="bi bi-incognito icon"></i> Permissions
+          </a>
+        </li>
+        @endrole
+        <li class="dropdown-item">
+          <a href="{{ route('slide.show') }}">
+            <i class="bi bi-magic icon"></i> {{ __('Slide') }}
+          </a>
+        </li>
+        <li class="dropdown-item">
+          <a href="{{ route('currency.show') }}">
+            <i class="bi bi-coin icon"></i> {{ __('Currency') }}
+          </a>
         </li>
       </ul>
-    </div>
-    @endauth
+    </li>
+  </ul>
+</div>
+@endauth
 
   </div>
 
@@ -146,7 +174,7 @@
 
 
 
-  <div class="body-text">
+  <div class="body-text ">
     <!-- body content -->
     @yield('body')
   </div>

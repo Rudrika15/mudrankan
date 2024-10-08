@@ -2,7 +2,15 @@
 @section('title')
 Category Show
 @endsection
+<style>
+    .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1d3268 !important;
+    border-color: #1d3268 !important;
+}
 
+</style>
 @section('body')
 
 <div class="container mt-3">
@@ -20,7 +28,7 @@ Category Show
 
   <div class="lead pb-2">
     Add New Category
-    <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm float-right">Add Category</a>
+    <a href="{{ route('category.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Category</a>
   </div>
   <div class="table-responsive">
 
@@ -41,8 +49,8 @@ Category Show
 
           <td><img src="{{url('catimg')}}/{{$data->image}}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;"></td>
           <td>
-            <a href="{{ url('backend/category/edit',$data->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a> &nbsp;&nbsp;
-            <a href="{{ route('category.delete',$data->id)}}"><span class="text-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+            <a href="{{ url('backend/category/edit',$data->id) }}"><i class="bi bi-pen" aria-hidden="true"></i></a> &nbsp;&nbsp;
+            <a href="{{ route('category.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash" aria-hidden="true"></i></span></a>
             @endforeach
           </td>
         </tr>

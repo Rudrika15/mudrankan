@@ -16,7 +16,7 @@ Product create
   @endif
 
   <div class="d-flex flex-row-reverse">
-    <a href="{{route('product.show')}}" class="btn btn-primary">Back </a>
+    <a href="{{route('product.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
   </div>
   @if ($errors->any())
   <div class="alert alert-danger alert-dismissible fade show">
@@ -153,7 +153,7 @@ Product create
       </div>
     </div>
     <div>
-      <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+      <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
     </div>
   </form>
 </div>

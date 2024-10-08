@@ -65,6 +65,15 @@ Route::get('/wishlist', [HomeController::class, "wishlist"])->name("front_end.wi
 Route::post('/registercode', [HomeController::class, "registercode"])->name("front_end.registercode");
 Route::post('/logincode', [HomeController::class, "logincode"])->name("front_end.logincode");
 Route::post('/logincodee', [HomeController::class, "logincodee"])->name("front_end.logincodee");
+
+//forgot password
+Route::get('forget-password', [HomeController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [HomeController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [HomeController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [HomeController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
+
 Route::get('/logout', [HomeController::class, "logout"])->name("front_end.logout");
 Route::post('/cart', [HomeController::class, "cart"])->name("front_end.cart");
 Route::get('/viewcart', [HomeController::class, "viewcart"])->name("front_end.viewcart");

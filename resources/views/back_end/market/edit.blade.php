@@ -100,7 +100,7 @@ Category Edit
       {{__('No')}}
       <input type="radio" id="available_for_delivery" name="available_for_delivery" value="no"  {{ $data->available_for_delivery == 'no' ? 'checked' : '' }}>
     </div>
-<button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+<button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
 </div>
 

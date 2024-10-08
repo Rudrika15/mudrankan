@@ -16,7 +16,7 @@ Option Create
     @endif
       
     <div class="d-flex flex-row-reverse">
-      <a href="{{route('option.show')}}" class="btn btn-primary">{{__('Back')}} </a>    
+      <a href="{{route('option.show')}}" class="btn text-white" style="background-color: #e76a35">{{__('Back')}} </a>    
     </div>
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
@@ -76,7 +76,7 @@ Option Create
     </div>
     
     
-    <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+    <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
 </div>
 

@@ -53,7 +53,7 @@ Productgallery create
     </div>
 
 
-    <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+    <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
 </div>
 

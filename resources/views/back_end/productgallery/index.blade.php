@@ -3,7 +3,15 @@
 @section('title') 
 Productgallery show 
 @endsection
+<style>
+    .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1d3268 !important;
+    border-color: #1d3268 !important;
+}
 
+</style>
 @section('body')
 
 
@@ -17,7 +25,10 @@ Productgallery show
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<h2>{{__('Product gallery View')}}</h2>
+<div class="lead pb-2">
+  Add New Product gallery
+  <a href="{{ route('productgallery.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add New Product gallery</a>
+</div>
 <div class="table-responsive">
   <table id="myDataTable" class="table table-striped">
     <thead>
@@ -35,8 +46,8 @@ Productgallery show
         </td>
         <td><img src="{{url('progaimg')}}/{{$data->image}}" class="img-thumbnail" style="width:100px;height:100px"></td>
        <td>
-<a href="{{ url('backend/productgallery/edit',$data->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>   &nbsp;&nbsp;
-<a href="{{ route('productgallery.delete',$data->id)}}"><span class="text-danger"><i class="fa fa-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{ url('backend/productgallery/edit',$data->id) }}"><i class="bi bi-pen" aria-hidden="true"></i></a>   &nbsp;&nbsp;
+<a href="{{ route('productgallery.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
 @endforeach
 </td>
       </tr>

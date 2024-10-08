@@ -4,7 +4,11 @@
         justify-content: space-between;
     }
 </style>
-@component('mail::message')
+You can reset password from bellow link:
+                        
+<a href="{{ route('reset.password.get', $token) }}">Reset Password</a>
+
+{{-- @component('mail::message')
 Message From <b>Mudrankan</b>
 
 <p> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -19,4 +23,4 @@ Message From <b>Mudrankan</b>
         <a href="http://127.0.0.1:8000/">www.mudrankan.com</a>
     </div>
 </div>
-@endcomponent
+@endcomponent --}}

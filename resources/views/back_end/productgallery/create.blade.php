@@ -17,7 +17,7 @@ Productgallery create
     @endif
       
     <div class="d-flex flex-row-reverse">
-      <a href="{{route('productgallery.show')}}" class="btn btn-primary">{{__('Back')}} </a>    
+      <a href="{{route('productgallery.show')}}" class="btn text-white" style="background-color: #e76a35">{{__('Back')}} </a>    
     </div>
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
@@ -30,7 +30,7 @@ Productgallery create
         </ul>
     </div>
 @endif
-  <form action="{{url('productgallery/code')}}" enctype="multipart/form-data" method="post">
+  <form action="{{route('productgallery.code')}}" enctype="multipart/form-data" method="post">
 @csrf
   <div class="mb-3 mt-3">
       <label for="product">{{__('Product')}}:</label>
@@ -43,7 +43,7 @@ Productgallery create
     
     <div class="row">
     <div class="col-md-4">
-    <label for="image">{{___('Image')}}:</label>
+    <label for="image">{{('Image')}}:</label>
       <input type="file" accept='image/*'  onchange="readURL(this,'#img1')" class="form-control" id="image" placeholder="Enter image" name="image">
    
   </div>
@@ -55,7 +55,7 @@ Productgallery create
 </div>
     
  
-    <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+    <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
 </div>
 

@@ -3,7 +3,15 @@
 @section('title') 
 Optiongroup show 
 @endsection
+<style>
+    .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1d3268 !important;
+    border-color: #1d3268 !important;
+}
 
+</style>
 @section('body')
 
 <div class="container mt-3">
@@ -18,7 +26,7 @@ Optiongroup show
 @endif
 <div class="lead pb-2">
             Add New OptionGroup
-            <a href="{{ route('optiongroup.create') }}" class="btn btn-primary btn-sm float-right">Add Optiongroup</a>
+            <a href="{{ route('optiongroup.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Optiongroup</a>
         </div>
 <div class="table-responsive">
   <table id="myDataTable" class="table table-striped">
@@ -33,8 +41,8 @@ Optiongroup show
       <tr>
         <td>{{$data->name}}</td>
         <td>
-<a href="{{ url('backend/optiongroup/edit',$data->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>  &nbsp;&nbsp;
-<a href="{{ url('backend/optiongroup/delete',$data->id)}}"><span class="text-danger"><i class="fa fa-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{ url('backend/optiongroup/edit',$data->id) }}"><i class="bi bi-pen" aria-hidden="true"></i></a>  &nbsp;&nbsp;
+<a href="{{ url('backend/optiongroup/delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
 @endforeach
 </td>
       </tr>

@@ -69,7 +69,7 @@ channel Edit
         <input type="text" class="form-control" id="url" value="{{$data->url}}" placeholder="Enter url" name="url">
       </div>
       <div>
-        <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+        <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
       </div>
     </form>
   </div>
