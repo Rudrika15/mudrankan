@@ -3,20 +3,17 @@
 @section('title') 
 Coupon show 
 @endsection
-<style>
-    .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #1d3268 !important;
-    border-color: #1d3268 !important;
-}
-
-</style>
 @section('body')
 
-<div class="container mt-3">
-<h2>{{__('coupon View')}}</h2>
-
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">coupon View</h4>
+        <a href="{{ route('coupon.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+          class="bi bi-plus-circle"></i>
+      <span class="btn-text">Add New Coupon</span></a>
+    </div>
 
 @if ($message = Session::get('success'))
       
@@ -25,23 +22,19 @@ Coupon show
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-    <div class="lead pb-2">
-            Add New Coupon
-            <a href="{{ route('coupon.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Coupon</a>
-        </div>
 <div class="table-responsive">
   <table id="myDataTable" class="table table-striped">
     <thead>
       <tr>
-        <th>{{__('Coupon Code')}}</th>
-        <th>{{__('Discount Type')}}</th>
-        <th>{{__('Discount')}}</th>
-        <th>{{__('Description')}}</th>
-        <th>{{__('Product')}}</th>
-        <th>{{__('Markets')}}</th>
-        <th>{{__('Categories')}}</th>
-        <th>{{__('Expires At')}}</th>
-        <th>{{__('Options')}}</th>
+        <th scope="col" width="50%">{{__('Coupon Code')}}</th>
+        <th scope="col" width="50%">{{__('Discount Type')}}</th>
+        <th scope="col" width="50%">{{__('Discount')}}</th>
+        <th scope="col" width="50%">{{__('Description')}}</th>
+        <th scope="col" width="50%">{{__('Product')}}</th>
+        <th scope="col" width="50%">{{__('Markets')}}</th>
+        <th scope="col" width="50%">{{__('Categories')}}</th>
+        <th scope="col" width="50%">{{__('Expires At')}}</th>
+        <th scope="col" width="50%">{{__('Options')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -81,8 +74,8 @@ Coupon show
         <td >{{$data->expires_at}}</td>
         
         <td>
-<a href="{{url('backend/coupon/edit',$data->id)}}"><i class="bi bi-pen" aria-hidden="true"></i></a>   &nbsp;&nbsp;
-<a href="{{ route('coupon.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{url('backend/coupon/edit',$data->id)}}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>   
+<a href="{{ route('coupon.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> 
 @endforeach
 </td>
       </tr>
@@ -90,6 +83,9 @@ Coupon show
     </tbody>
   </table>
 </div>
+    </div>
 </div>
+</div>
+
 @endsection
 

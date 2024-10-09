@@ -5,8 +5,14 @@ Product create
 
 @section('body')
 
-<div class="container mt-3">
-  <h2>{{__('Product Create')}}</h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Product Create</h4>
+        <a href="{{route('product.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
 
   @if ($message = Session::get('success'))
   <div class="alert alert-success alert-dismissible fade show">
@@ -15,9 +21,6 @@ Product create
   </div>
   @endif
 
-  <div class="d-flex flex-row-reverse">
-    <a href="{{route('product.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
-  </div>
   @if ($errors->any())
   <div class="alert alert-danger alert-dismissible fade show">
     <strong>Whoops!</strong> {{__('There were some problems with your input')}}.<br><br>
@@ -156,6 +159,8 @@ Product create
       <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
     </div>
   </form>
+    </div>
+  </div>
 </div>
 
 <script>

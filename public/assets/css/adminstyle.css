@@ -1,0 +1,114 @@
+.user {
+    color: black;
+
+  }
+
+  .navbar {
+    background-color: white
+  }
+
+  .sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 40px;
+    box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
+    background-color: white;
+
+  }
+
+  .sidebar div {
+    padding: 8px;
+    padding-left: 20px;
+    font-size: 20px;
+    display: block;
+  }
+
+  .icon {
+    color: #e76a35
+  }
+
+  .body-text {
+    margin-left: 250px;
+    font-size: 18px;
+  }
+
+  .sidebar a {
+    color: black;
+    text-decoration: none;
+  }
+  .page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #1d3268 !important;
+    border-color: #1d3268 !important;
+  }
+  .btn-bg-orange{
+    background-color:#e76a35;
+    color: white
+  }
+  .btn-bg-blue{
+    background-color:#1d3268;
+    color: white
+  }
+  .btn-bg-danger{
+    background-color:red;
+    color: white
+  }
+
+  .btn-bg-warning{
+    background-color:#f0ad4e;
+    color: white
+  }
+
+  .btn-tooltip {
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-tooltip .bi {
+    vertical-align: text-bottom;
+}
+
+.btn-tooltip .btn-text {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 0.75rem;
+    text-align: center;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+.btn-tooltip:hover {
+    color: white; /* Keeps text color same on hover */
+}
+.btn-tooltip:hover .btn-text {
+    opacity: 1;
+}
+.table-responsive {
+    max-height: 500px; 
+    overflow-y: auto; 
+  }
+  
+  #myDataTable thead th {
+    position: sticky; 
+    top: 0; 
+    background-color: white; 
+    z-index: 999;
+  }
+
+  #myDataTable {
+    width: 100%; 
+  }

@@ -6,18 +6,19 @@ Channel Create
 
 @section('body')
 
-<div class="container mt-3">
-  <h2>{{__('Channel Create')}} </h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Channel Create</h4>
+        <a href="{{route('channel.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
   @if ($message = Session::get('success'))
   <div class="alert alert-success alert-dismissible fade show">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     <p>{{ $message }}</p>
   </div>
   @endif
-
-  <div class="d-flex flex-row-reverse">
-    <a href="{{route('channel.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
-  </div>
   @if ($errors->any())
   <div class="alert alert-danger alert-dismissible fade show">
     <strong>Whoops!</strong> {{__('There were some problems with your input')}}.<br><br>
@@ -74,6 +75,9 @@ Channel Create
       </div>
 
   </form>
+    </div>
+  </div>
+
 </div>
 <script>
   function readURL(input, tgt) {

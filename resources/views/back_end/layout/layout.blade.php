@@ -18,53 +18,11 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-</head>
+  <link href="{{asset('assets/css/adminstyle.css')}}" rel="stylesheet"></head>
 
 <body style="background-color: #f6f9ff">
 
 
-  <style>
-    /* CSS */
-
-.user{
-  color: black;
-
-}
-.navbar{
-  background-color: white
-}
-    .sidebar {
-      height: 100vh;
-      width: 250px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      padding-top: 40px;
-      box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
-      background-color: white;
-    }
-
-    .sidebar div {
-      padding: 8px;
-      padding-left: 20px;
-      font-size: 20px;
-      display: block;
-    }
-    .icon{
-      color: #e76a35
-    }
-
-    .body-text {
-      margin-left: 250px;
-      font-size: 18px;
-    }
-
-    .sidebar a {
-      color: black;
-      text-decoration: none;
-    }
-    
-  </style>
 
   <!-- HTML -->
 
@@ -83,8 +41,8 @@
         <ul class="navbar-nav me-5">
 
           <li class="nav-item dropdown">
-            <a class="user nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a class="user nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
               {{auth()->user()->firstName}}<i class="bi bi-person-circle ms-1"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,7 +68,8 @@
 
   <!-- sidebar -->
   <div class="sidebar">
-    <div class="border border-4" style="font-weight: 500; color:black; font-size: 180%;"><i class="bi bi-cart4 icon"></i>
+    <div class="border border-4" style="font-weight: 500; color:black; font-size: 180%;"><i
+        class="bi bi-cart4 icon"></i>
       E-Commerce</div>
     <div><a href="{{route('home.index')}}"><i class="bi bi-house-fill icon"></i> {{__('Home')}}</a></div>
     <div><a href="{{route('field.show')}}"><i class="bi bi-list-task icon"></i> {{__('Field')}}</a></div>
@@ -124,49 +83,51 @@
     <div><a href="{{route('optiongroup.show')}}"> <i class="bi bi-plus-square-fill icon"></i> {{__('Option Group')}}</a>
     </div>
     <div><a href="{{route('coupon.show')}}"><i class="bi bi-ticket-detailed icon"></i> {{__('Coupon')}}</a></div>
-    <div> <a href="{{route('voucharmaster.show')}}"><i class="bi bi-ticket-detailed-fill icon"></i> {{__('Vouchar')}}</a>
+    <div> <a href="{{route('voucharmaster.show')}}"><i class="bi bi-ticket-detailed-fill icon"></i>
+        {{__('Vouchar')}}</a>
     </div>
 
-@auth
-@role("Admin")
-<div class="text-start me-5">
-  <ul class="navbar-nav me-5">
-    <li class="nav-item dropdown">
-      <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-gear-fill icon"></i> Setting
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li class="dropdown-item">
-          <a href="{{ route('users.index') }}">
-            <i class="bi bi-people-fill icon"></i> Users
+    @auth
+    @role("Admin")
+    <div class="text-start me-5">
+      <ul class="navbar-nav me-5">
+        <li class="nav-item dropdown">
+          <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-gear-fill icon"></i> Setting
           </a>
-        </li>
-        <li class="dropdown-item">
-          <a href="{{ route('roles.index') }}">
-            <i class="bi bi-person-check-fill icon"></i> Roles
-          </a>
-        </li>
-        <li class="dropdown-item">
-          <a href="{{ route('permissions.index') }}">
-            <i class="bi bi-incognito icon"></i> Permissions
-          </a>
-        </li>
-        @endrole
-        <li class="dropdown-item">
-          <a href="{{ route('slide.show') }}">
-            <i class="bi bi-magic icon"></i> {{ __('Slide') }}
-          </a>
-        </li>
-        <li class="dropdown-item">
-          <a href="{{ route('currency.show') }}">
-            <i class="bi bi-coin icon"></i> {{ __('Currency') }}
-          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li class="dropdown-item">
+              <a href="{{ route('users.index') }}">
+                <i class="bi bi-people-fill icon"></i> Users
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="{{ route('roles.index') }}">
+                <i class="bi bi-person-check-fill icon"></i> Roles
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="{{ route('permissions.index') }}">
+                <i class="bi bi-incognito icon"></i> Permissions
+              </a>
+            </li>
+            @endrole
+            <li class="dropdown-item">
+              <a href="{{ route('slide.show') }}">
+                <i class="bi bi-magic icon"></i> {{ __('Slide') }}
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="{{ route('currency.show') }}">
+                <i class="bi bi-coin icon"></i> {{ __('Currency') }}
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
-    </li>
-  </ul>
-</div>
-@endauth
+    </div>
+    @endauth
 
   </div>
 
@@ -180,15 +141,17 @@
   </div>
 
 
-
-
-
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
   <script>
     $(document).ready(function() {
-      $("#myDataTable").DataTable();
+      $("#myDataTable").DataTable({
+        "scrollY": true, 
+      "scrollX": true, 
+      "paging": true,
+      "searching": true,
+      });
     });
   </script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

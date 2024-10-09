@@ -7,8 +7,14 @@ Currency Create
 
 @section('body')
 
-<div class="container mt-3">
-  <h2>{{__('Currency Create')}}</h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Currency Create</h4>
+        <a href="{{route('currency.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -16,9 +22,6 @@ Currency Create
         </div>
     @endif
       
-    <div class="d-flex flex-row-reverse">
-      <a href="{{route('currency.show')}}" class="btn btn-primary">Back </a>    
-    </div>
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -54,8 +57,10 @@ Currency Create
       <input type="text" class="form-control" id="rounding" placeholder="{{__('Enter rounding')}}" name="rounding">
     </div>
     
-    <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+    <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
+</div>
+  </div>
 </div>
 
 

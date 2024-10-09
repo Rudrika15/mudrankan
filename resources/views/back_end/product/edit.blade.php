@@ -6,7 +6,13 @@ Product edit
 @section('body')
 
 <div class="container mt-3">
-  <h2>{{__('Product Edit')}}</h2>
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Product Edit</h4>
+        <a href="{{route('product.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
   @if ($message = Session::get('success'))
   <div class="alert alert-success alert-dismissible fade show">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -116,6 +122,8 @@ Product edit
     <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
 </div>
 </form>
+  </div>
+</div>
 </div>
 
 <script>

@@ -1,56 +1,53 @@
-
 @extends('back_end.layout.layout')
-@section('title') 
-Field Show 
+@section('title')
+Field Show
 @endsection
-<style>
-  .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #1d3268 !important;
-    border-color: #1d3268 !important;
-}
-</style>
 @section('body')
 
-<div class="container mt-3">
-<h2>{{__('Field View')}}</h2>
-
-@if ($message = Session::get('success'))
-      
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <p>{{ $message }}</p>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
-<div class="lead pb-2">
-            Add New Field
-            <a href="{{ route('field.create') }}" class="btn btn-sm float-right text-white" style="background-color:#1d3268;">Add Field</a>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Field View</h4>
+        <a href="{{ route('field.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+          class="bi bi-plus-circle"></i>
+      <span class="btn-text">Add Country</span></a>
         </div>
-<div class="table-responsive">
-  <table id="myDataTable" class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>{{__('Name')}}</th>
-        <th>{{__('Description')}}</th>
-        <th>{{__('Option')}}</th>
-      </tr>
-    </thead>
-    <tbody>
-    @foreach( $data as $data)
-      <tr>
-        <td>{{$data->name}}</td>
-        <td>{!! $data->description !!}</td>
-        <td>
-<a href="{{ url('backend/field/edit',$data->id) }}"><i class="bi bi-pen" aria-hidden="true"></i></a> &nbsp;&nbsp;
-<a href="{{ route('field.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
-@endforeach
-</td>
-      </tr>
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <p>{{ $message }}</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        {{-- <div class="lead pb-2"> --}}
+        {{-- </div> --}}
+        <div class="table-responsive">
+          <table id="myDataTable" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col" width="50%">Name</th>
+                <th scope="col" width="50%">Description</th>
+                <th scope="col" width="50%">Option</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach( $data as $data)
+              <tr>
+                <td>{{$data->name}}</td>
+                <td>{!! $data->description !!}</td>
+                <td>
+                  <a href="{{ url('backend/field/edit',$data->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen " aria-hidden="true"></i></a>
+                  <a href="{{ route('field.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"
+                        aria-hidden="true"></i></a>
+                  @endforeach
+                </td>
+              </tr>
 
-    </tbody>
-  </table>
-</div>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
 </div>
 
 @endsection

@@ -6,15 +6,21 @@ Category Create
 
 @section('body')
 
-<div class="bg-light p-4 rounded">
-        <h1>{{ ucfirst($role->name) }} Role</h1>
-        <div class="lead">
-            
-        </div>
+<div class="container mt-3 px-5">
+    <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="card-title">Show Role</h4>
+            <a href="{{route('roles.index')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+          </div>
+
         
         <div class="container mt-4">
+            {{-- <div class="d-flex flex-row-reverse">
+                <a href="{{route('roles.index')}}" class="btn text-white" style="background-color: #e76a35">{{__('Back')}} </a>    
+              </div>           --}}
 
-            <h3>Assigned permissions</h3>
+            {{-- <h3>Assigned permissions</h3> --}}
 
             <table class="table table-striped">
                 <thead>
@@ -32,8 +38,8 @@ Category Create
         </div>
 
     </div>
-    <div class="mt-4">
-        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">Edit</a>
-        <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
-    </div>
+    {{-- <div class="mt-4">
+        <a href="{{ route('roles.edit', $role->id) }}" class="btn text-white" style="background-color: #1d3268">Edit</a>
+        {{-- <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a> --}}
+    {{-- </div> --}} 
 @endsection

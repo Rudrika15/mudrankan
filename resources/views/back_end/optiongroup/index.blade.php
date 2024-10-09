@@ -3,19 +3,17 @@
 @section('title') 
 Optiongroup show 
 @endsection
-<style>
-    .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #1d3268 !important;
-    border-color: #1d3268 !important;
-}
-
-</style>
 @section('body')
 
-<div class="container mt-3">
-<h2>{{__('Option Group View')}}</h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Option Group View</h4>
+        <a href="{{ route('optiongroup.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+          class="bi bi-plus-circle"></i>
+      <span class="btn-text">Add New OptionGroup</span></a>
+    </div>
 
 @if ($message = Session::get('success'))
       
@@ -24,16 +22,12 @@ Optiongroup show
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<div class="lead pb-2">
-            Add New OptionGroup
-            <a href="{{ route('optiongroup.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Optiongroup</a>
-        </div>
 <div class="table-responsive">
-  <table id="myDataTable" class="table table-striped">
+  <table id="myDataTable" class="table table-striped table-hover">
     <thead>
       <tr>
-        <th>{{__('Name of Group')}}</th>
-        <th>{{__('Options')}}</th>
+        <th scope="col" width="100%">{{__('Name of Group')}}</th>
+        <th scope="col" width="100%">{{__('Options')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -41,8 +35,8 @@ Optiongroup show
       <tr>
         <td>{{$data->name}}</td>
         <td>
-<a href="{{ url('backend/optiongroup/edit',$data->id) }}"><i class="bi bi-pen" aria-hidden="true"></i></a>  &nbsp;&nbsp;
-<a href="{{ url('backend/optiongroup/delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{ url('backend/optiongroup/edit',$data->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>  
+<a href="{{ url('backend/optiongroup/delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> 
 @endforeach
 </td>
       </tr>
@@ -50,5 +44,8 @@ Optiongroup show
     </tbody>
   </table>
 </div>
+    </div>
+  </div>
 </div>
+
 @endsection

@@ -6,18 +6,21 @@ Vouchar Edit
 
 @section('body')
 
-<div class="container mt-3">
-  <h2>Vouchar edit</h2>
-  @if ($message = Session::get('success'))
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Vouchar Edit</h4>
+        <a href="{{route('voucharmaster.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
+ @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <p>{{ $message }}</p>
         </div>
     @endif
       
-    <div class="d-flex flex-row-reverse">
-      <a href="{{route('voucharmaster.show')}}" class="btn text-white" style="background-color: #e76a35">{{__('Back')}} </a>    
-    </div>
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -65,6 +68,8 @@ Vouchar Edit
     
     <button type="submit" class="btn text-white" style="background-color: #1d3268">Submit</button>
   </form>
+</div>
+  </div>
 </div>
 
 @endsection

@@ -5,8 +5,14 @@ Productgallery create
 
 @section('body')
 
-<div class="container mt-3">
-  <h2>{{__('Product Gallery Edit')}}</h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Product Gallery Edit</h4>
+        <a href="{{route('productgallery.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
   @if ($message = Session::get('success'))
   <div class="alert alert-success alert-dismissible fade show">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -55,6 +61,8 @@ Productgallery create
 
     <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
+    </div>
+  </div>
 </div>
 
 

@@ -1,18 +1,20 @@
 
 @extends('back_end.layout.layout')
 @section('title') 
-Category Create
+Pemission Create
 @endsection
 
 @section('body')
 
-
-    <div class="bg-light p-4 rounded">
-        <h2>Permissions</h2>
-        <div class="lead">
-            Manage your permissions here.
-            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right">Add permissions</a>
-        </div>
+    <div class="container mt-3 px-5">
+        <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title"> Manage your permissions here</h4>
+                <a href="{{ route('permissions.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+                  class="bi bi-plus-circle"></i>
+              <span class="btn-text">Add New role</span></a>
+            </div>
         
         
         <table class="table table-striped">
@@ -28,9 +30,9 @@ Category Create
                     <tr>
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->guard_name }}</td>
-                        <td><a href="{{ route('permissions.edit', $permission->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                        <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a></td>
                         <td>
-                        <a href="{{ route('permissions.destroy', $permission->id) }}"><span class="text-danger"><i class="fa fa-trash"  aria-hidden="true"></i></span></a>
+                        <a href="{{ route('permissions.destroy', $permission->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -38,5 +40,6 @@ Category Create
         </table>
 
     </div>
-
+        </div>
+    </div>
 @endsection

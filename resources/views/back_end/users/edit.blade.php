@@ -6,12 +6,14 @@ Update User
 
 @section('body')
 
-<div class="bg-light p-4 rounded">
-    <h1>Update user</h1>
-    <div class="lead">
-
-    </div>
-
+<div class="container mt-3 px-5">
+    <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="card-title">Update user</h4>
+            <a href="{{route('users.index')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+          </div>
+    
     <div class="container mt-4">
         <form method="post" action="{{ route('users.update', $user->id) }}">
             @csrf
@@ -68,10 +70,11 @@ Update User
                 @endif
             </div>
 
-            <button type="submit" class="btn btn-primary">Update user</button>
-            <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn text-white" style="background-color: #1d3268">Update user</button>
         </form>
     </div>
 
+</div>
+    </div>
 </div>
 @endsection

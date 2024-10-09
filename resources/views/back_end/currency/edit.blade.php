@@ -6,15 +6,21 @@ Currency Edit
 
 @section('body')
 
-<div class="container mt-3">
-  <h2>Currency Edit</h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Currency Edit</h4>
+        <a href="{{route('currency.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <p>{{ $message }}</p>
         </div>
     @endif
-      
+  
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -50,8 +56,10 @@ Currency Edit
       <label for="rounding">Rounding:</label>
       <input type="text" class="form-control" id="rounding" value="{{$data->rounding}}" placeholder="Enter here" name="rounding">
     </div>
-<button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" class="btn text-white" style="background-color: #1d3268">Submit</button>
   </form>
+</div>
+  </div>
 </div>
 
 

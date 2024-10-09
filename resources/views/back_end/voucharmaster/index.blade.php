@@ -3,20 +3,17 @@
 @section('title') 
 Vouchar show 
 @endsection
-<style>
-    .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #1d3268 !important;
-    border-color: #1d3268 !important;
-}
-
-</style>
 @section('body')
 
-<div class="container mt-3">
-<h2>Vouchar View</h2>
-
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Vouchar View</h4>
+        <a href="{{ route('voucharmaster.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+          class="bi bi-plus-circle"></i>
+      <span class="btn-text">Add New Vouchar</span></a>
+    </div>
 
 @if ($message = Session::get('success'))
       
@@ -25,10 +22,6 @@ Vouchar show
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<div class="lead pb-2">
-            Add New Vouchar
-            <a href="{{ route('voucharmaster.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Vouchar</a>
-        </div>
 <div class="table-responsive">
   <table id="myDataTable" class="table table-striped">
     <thead>
@@ -52,8 +45,8 @@ Vouchar show
         <td>{{$data->quantity}}</td>
         <td>{{$data->vouchar_status}}</td>
         <td>
-<a href="{{url('backend/voucharmaster/edit',$data->id)}}"><i class="bi bi-pen" aria-hidden="true"></i></a>   &nbsp;&nbsp;
-<a href="{{route('voucharmaster.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{url('backend/voucharmaster/edit',$data->id)}}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>   
+<a href="{{route('voucharmaster.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> 
 @endforeach
 </td>
       </tr>
@@ -62,5 +55,8 @@ Vouchar show
   </table>
 </div>
 </div>
+  </div>
+</div>
+
 @endsection
 

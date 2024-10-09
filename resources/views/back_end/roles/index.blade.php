@@ -4,19 +4,21 @@
 @section('title') 
 Category Create
 @endsection
-
 @section('body')
 
-    <div class="bg-light p-4 rounded">
-        <h1>Roles</h1>
-        <div class="lead pb-2">
-            Manage your roles here.
-            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Add role</a>
-        </div>
+    <div class="container mt-3 px-5">
+        <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="card-title">Roles</h4>
+                <a href="{{ route('roles.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+                  class="bi bi-plus-circle"></i>
+              <span class="btn-text">Add New role</span></a>
+            </div>
+            
         
         
-        
-        <table class="table table-bordered table-striped">
+        <table class="table table-striped">
           <tr>
              <th width="1%">No</th>
              <th>Name</th>
@@ -27,20 +29,22 @@ Category Create
                 <td>{{ $role->id }}</td>
                 <td>{{ $role->name }}</td>
                 <td>
-                    <a href="{{ route('roles.show', $role->id) }}"><i class="bi bi-eye"></i></a>
+                    <a href="{{ route('roles.show', $role->id) }}" class="btn btn-bg-warning btn-sm btn-tooltip"><i class="bi bi-eye"></i></a>
                 </td>
                 <td>
-                    <a href="{{ route('roles.edit', $role->id) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                <a href="{{ route('roles.destroy', $role->id) }}"><span class="text-danger"><i class="fa fa-trash"  aria-hidden="true"></i></span></a></td>
+                <a href="{{ route('roles.destroy', $role->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </table>
 
-        <div class="d-flex">
+        <div class="d-flex justify-content-end">
             {!! $roles->links() !!}
         </div>
 
+    </div>
+        </div>
     </div>
 @endsection

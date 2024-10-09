@@ -7,15 +7,21 @@ Optiongroup edit
 @section('body')
 
 
-<div class="container mt-3">
-  <h2>{{__('Option group Edit')}}</h2>
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Option group Edit</h4>
+        <a href="{{route('optiongroup.show')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+      </div>
+
   @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <p>{{ $message }}</p>
         </div>
     @endif
-      
+
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
         <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -38,6 +44,8 @@ Optiongroup edit
     
     <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>
   </form>
+    </div>
+  </div>
 </div>
 
 <script>

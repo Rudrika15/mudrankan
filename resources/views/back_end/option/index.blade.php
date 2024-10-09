@@ -3,20 +3,17 @@
 @section('title') 
 Option show 
 @endsection
-<style>
-    .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #1d3268 !important;
-    border-color: #1d3268 !important;
-}
-
-</style>
 @section('body')
 
-<div class="container mt-3">
-<h2>{{__('Option View')}}</h2>
-
+<div class="container mt-3 px-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="card-title">Option View</h4>
+        <a href="{{ route('option.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
+          class="bi bi-plus-circle"></i>
+      <span class="btn-text">Add New Option</span></a>
+    </div>
 
 @if ($message = Session::get('success'))
       
@@ -25,21 +22,17 @@ Option show
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<div class="lead pb-2">
-            Add New Option
-            <a href="{{ route('option.create') }}" class="btn text-white btn-sm float-right" style="background-color: #1d3268">Add Option</a>
-        </div>
 <div class="table-responsive">
-  <table id="myDataTable" class="table table-striped">
+  <table id="myDataTable" class="table table-striped table-hover">
     <thead>
       <tr>
-        <th>{{__('Option Name')}}</th>
-        <th>{{__('Image')}}</th>
-        <th>{{__('Description')}}</th>
-        <th>{{__('Price')}}</th>
-        <th>{{__('Product')}}</th>
-        <th>{{__('Option Group')}}</th>
-        <th>{{__('Options')}}</th>
+        <th scope="col" width="20%">{{__('Option Name')}}</th>
+        <th scope="col" width="20%">{{__('Image')}}</th>
+        <th scope="col" width="20%">{{__('Description')}}</th>
+        <th scope="col" width="20%">{{__('Price')}}</th>
+        <th scope="col" width="20%">{{__('Product')}}</th>
+        <th scope="col" width="20%">{{__('Option Group')}}</th>
+        <th scope="col" width="20%">{{__('Options')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -53,8 +46,8 @@ Option show
         <td >{{$data->oname}}</td>
         
         <td>
-<a href="{{url('backend/option/edit',$data->id)}}"><i class="bi bi-pen" aria-hidden="true"></i></a>   &nbsp;&nbsp;
-<a href="{{ route('option.delete',$data->id)}}"><span class="text-danger"><i class="bi bi-trash"  aria-hidden="true"></i></span></a> 
+<a href="{{url('backend/option/edit',$data->id)}}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>  
+<a href="{{ route('option.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> 
 @endforeach
 </td>
       </tr>
@@ -63,5 +56,8 @@ Option show
   </table>
 </div>
 </div>
+  </div>
+</div>
+
 @endsection
 

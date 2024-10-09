@@ -7,12 +7,14 @@ Category Create
 
 @section('body')
 
-<div class="bg-light p-4 rounded">
-        <h1>Add new role</h1>
-        <div class="lead">
-            Add new role and assign permissions.
-        </div>
-
+<div class="container mt-3 px-5">
+    <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="card-title"> Add new role and assign permissions.</h4>
+            <a href="{{route('roles.index')}}" class="btn text-white" style="background-color: #e76a35">Back </a>
+          </div>
+    
         <div class="container mt-4">
 
             @if (count($errors) > 0)
@@ -60,12 +62,15 @@ Category Create
                     @endforeach
                 </table>
 
-                <button type="submit" class="btn btn-primary">Save user</button>
-                <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
+                <button type="submit" class="btn text-white"  style="background-color: #1d3268">Save user</button>
+                {{-- <a href="{{ route('users.index') }}" class="btn btn-default">Back</a> --}}
             </form>
         </div>
 
     </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
