@@ -400,7 +400,7 @@ $(document).ready(function() {
                     window.location.reload();
 
                } else {
-                    alert(response.error); 
+                    // alert(response.error); 
                }
            },
            error: function(xhr) {
@@ -421,7 +421,7 @@ $(document).ready(function() {
                     icon.data('id', response.wishlist_id); 
                     window.location.reload();
                  } else {
-                    alert(response.error);
+                    // alert(response.error);
                  }
                },
                error: function(xhr) {

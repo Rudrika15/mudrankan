@@ -131,33 +131,33 @@
 
   </div>
 
-  <!-- end sidebar -->
+<!-- end sidebar -->
 
 
 
-  <div class="body-text ">
-    <!-- body content -->
-    @yield('body')
-  </div>
+<div class="body-text ">
+  <!-- body content -->
+  @yield('body')
+</div>
 
 
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
-  <script>
-    $(document).ready(function() {
-      $("#myDataTable").DataTable({
-        "scrollY": true, 
+<script>
+  $(document).ready(function() {
+    $("#myDataTable").DataTable({
+      "scrollY": true, 
       "scrollX": true, 
       "paging": true,
       "searching": true,
-      });
     });
-  </script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+  });
+</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </body>
 
 </html>

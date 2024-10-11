@@ -305,3 +305,36 @@ body {
 .dropdown-divider {
     color: var(--primary);
 }
+@media (max-width: 1024px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        font-size: small;
+        padding: 7px;
+    }
+    .pimg {
+        flex: 0 0 auto;
+        width: 33%;
+    }
+
+    .bimg {
+        flex: 0 0 auto;
+        width: 42.333333%;
+    }
+    .bcap {
+        flex: 0 0 auto;
+        width: 49.333333%;
+    }
+}
+@media(max-width: 786px){
+    .pimg {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+@media(max-width: 2560px){
+    .wicon {
+       top:8px;
+       right: 45px;
+
+    }
+}
+

@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <nav class="header3 navbar navbar-expand-lg navbar-light sticky-top bg-white py-3">
+    <nav class=" navbar navbar-expand-lg navbar-light sticky-top bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{route('front_end.index')}}"><img src="{{asset('assets/img/logo.jpg')}}" class="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
@@ -28,21 +28,6 @@
                     <li class="nav-item">
                         <a class="nav-link active text-uppercase" aria-current="page" href="{{route('front_end.index')}}">home</a>
                     </li>
-
-{{-- {{$categoryIds}} --}}
-{{-- {{$categories}} --}}
-                    {{-- <li class="nav-item">
-                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.walldecors')}}">wall decor</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.homedecors')}}">home decor</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.craft')}}">craft</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.stationery')}}">stationery</a>
-                    </li> --}}
 
                     @foreach($categories as $category)
                     <li class="nav-item">

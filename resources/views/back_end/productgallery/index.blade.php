@@ -1,10 +1,8 @@
-
 @extends('back_end.layout.layout')
 @section('title') 
 Productgallery show 
 @endsection
 @section('body')
-
 
 <div class="container mt-3 px-5">
   <div class="card">
@@ -18,8 +16,6 @@ Productgallery show
           <a href="{{route('product.show')}}" class="btn text-white d-flex align-items-center" style="background-color: #e76a35">Back </a>
       </div>
       </div>
-
-
 
 @if ($message = Session::get('success'))
       

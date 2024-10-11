@@ -60,43 +60,44 @@
         <footer class="footer">
             <div class="container ">
                 <div class="row ">
-                    <div class="col-md-2 ">
+                    <div class="col-sm-6 col-md-3 mb-4">
                         <b class="d-flex justify-content-center mb-3">Quick Links</b>
                         <ul class="list-group list-group-flush text-center" >
-                            <li class="list-group-item mb-3"><a href="{{route('privacy.policy')}}">Privacy Policy</a></li>
-                            <li class="list-group-item mb-3"><a href="{{route('terms.conditions')}}">Terms & Conditions</a></li>
-                            <li class="list-group-item mb-3"><a href="{{route('disclaimer')}}">Disclaimer</a></li>
-                            <li class="list-group-item mb-3"><a href="{{route('corporate.gifting')}}">Corporate Gifting</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('privacy.policy')}}">Privacy Policy</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('terms.conditions')}}">Terms & Conditions</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('disclaimer')}}">Disclaimer</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('corporate.gifting')}}">Corporate Gifting</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-6 col-md-3 mb-4">
                         <b class="d-flex justify-content-center mb-3">Help Menu</b>
                         <ul class="list-group list-group-flush text-center">
-                            <li class="list-group-item mb-3">Contact Us</li>
-                            <li class="list-group-item mb-3">Track Your Order</li>
-                            <li class="list-group-item mb-3">Return & Exchange</li>
-                            <li class="list-group-item mb-3">About Us</li>
-                            <li class="list-group-item mb-3">Blogs</li>
+                            <li class="list-group-item mb-2"><a href="{{route('front_end.contactus')}}">Contact Us</a></li>
+                            <li class="list-group-item mb-2">Track Your Order</li>
+                            <li class="list-group-item mb-2">Return & Exchange</li>
+                            <li class="list-group-item mb-2"><a href="{{route('front_end.about')}}">About Us</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-sm-6 col-md-3 mb-4">
                         <b class="d-flex justify-content-center mb-3">Shop</b>
                         <ul class="list-group list-group-flush text-center">
-                            <li class="list-group-item mb-3">Privacy Policy</li>
-                            <li class="list-group-item mb-3">Terms & Conditions</li>
-                            <li class="list-group-item mb-3">Disclaimer</li>
-                            <li class="list-group-item mb-3">Corporate Gifting</li>
+                            <li class="list-group-item mb-2"><a href="{{route('privacy.policy')}}">Privacy Policy</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('terms.conditions')}}">Terms & Conditions</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('disclaimer')}}">Disclaimer</a></li>
+                            <li class="list-group-item mb-2"><a href="{{route('corporate.gifting')}}">Corporate Gifting</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-6 col-md-3 mb-4">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-12">
                                 <b class="d-flex justify-content-center mb-3">Get in touch</b>
                                 <ul class="list-group list-group-flush text-center">
-                                    <li class="list-group-item mb-3"><i class="bi bi-telephone"></i> +919999999999</li>
-                                    <li class="list-group-item mb-3"><i class="bi bi-envelope"></i> www.mudrankan.com</li>
-                                    <li class="list-group-item mb-3"> <b> Follow Us </b></li>
-                                    <li class="list-group-item">
+                                    <li class="list-group-item mb-2"><i class="bi bi-telephone"></i> <small>+919999999999</small></li>
+                                    <li class="list-group-item mb-2">
+                                        <a href="mailto:munrankan@gmail.com"><i class="bi bi-envelope"></i> <small>mudrankan@gmail.com</small></a>
+                                    </li>
+                                    <li class="list-group-item mb-2"> <b> Follow Us </b></li>
+                                    <li class="list-group-item mb-2">
                                         <i class="bi bi-youtube"></i>
                                         <i class="bi bi-instagram "></i>
                                         <i class="bi bi-facebook "></i>
@@ -105,13 +106,13 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="col-md-4">
+                            {{-- <div class="col-12 mt-4">
                                 <b class="d-flex justify-content-center mb-3">We Accept</b>
                                 <ul class="list-group list-group-flush text-center">
-                                    <li class="list-group-item mb-3">visa</li>
-                                    <li class="list-group-item mb-3">Master</li>
+                                    <li class="list-group-item mb-2">visa</li>
+                                    <li class="list-group-item mb-2">Master</li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

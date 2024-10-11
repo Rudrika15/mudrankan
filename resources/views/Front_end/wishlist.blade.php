@@ -88,8 +88,8 @@
                                         // Remove the wishlist item from the DOM without showing a success message
                                         $('#wishlist-item-' + id).remove();
                                         Swal.fire({
-                                             title: 'Deleted Successfully',
-                                             text:"Wishlist Item Deleted Successfully",
+                                             title: 'Removed Successfully',
+                                             text:"Wishlist Item Removed Successfully",
                                              icon: 'success',
                                              confirmButtonText: 'ok',
                                         }).then(()=>{
