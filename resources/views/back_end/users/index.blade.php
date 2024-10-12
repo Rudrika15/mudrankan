@@ -45,7 +45,7 @@ Category Create
                                         aria-hidden="true"></i></a></td>
                             <td>
                                 <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i
-                                            class="bi bi-trash" aria-hidden="true"></i></a>
+                                        class="bi bi-trash" aria-hidden="true"></i></a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-tooltip" data-bs-toggle="modal" style="background-color: #1d3268"

@@ -5,20 +5,36 @@
 
   .navbar {
     background-color: white
+    
   }
 
   .sidebar {
-    height: 100vh;
-    width: 250px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding-top: 40px;
-    box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
-    background-color: white;
-
+    background-color: #ffffff;
+    width: 250px; 
+    height: 100vh; 
+    overflow-y: auto;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    border-right: 1px solid rgba(0, 0, 0, 0.1); 
   }
+  .sidebar .icon {
+    margin-right: 10px; 
+}
 
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px; 
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        width: 100%; 
+        position: relative; 
+        height: auto; 
+    }
+}
   .sidebar div {
     padding: 8px;
     padding-left: 20px;
@@ -92,23 +108,25 @@
     z-index: 1;
 }
 .btn-tooltip:hover {
-    color: white; /* Keeps text color same on hover */
+    color: white; 
 }
 .btn-tooltip:hover .btn-text {
     opacity: 1;
 }
 .table-responsive {
-    max-height: 500px; 
-    overflow-y: auto; 
-  }
-  
-  #myDataTable thead th {
-    position: sticky; 
-    top: 0; 
-    background-color: white; 
-    z-index: 999;
-  }
+  overflow-x: auto; 
+}
 
-  #myDataTable {
-    width: 100%; 
-  }
+#myDataTable thead th {
+  position: sticky; 
+  top: 0;
+  background-color: white; 
+  z-index: 1000; 
+  text-align: center; 
+}
+
+#myDataTable tbody td {
+  text-align: left; 
+}
+
+  

@@ -179,10 +179,10 @@
                     <div class="vr"></div>
                </div>
           </div>
-          <div class="col-md-5 ">
+          <div class="col-md-5 text-center">
                <div class="container-fluid py-5">
 
-                    <table class="table">
+                    <table class="table text-center">
                          <tr>
                               <th></th>
                               <th>Name</th>
@@ -229,7 +229,7 @@
                     </div> --}}
                     @if($carts->count() >0)
                     <div class="row py-2">
-                         <div class="col-md-10">
+                         <div class="search col-md-10">
                               <input type="text" class="form-control" id="discount" placeholder="Discount Code">
                          </div>
                          <div class="col-md-2">

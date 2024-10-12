@@ -4,11 +4,11 @@ Field Show
 @endsection
 @section('body')
 
-<div class="container mt-3 px-5">
+<div class="container mt-3 px-5 px-md-5">
   <div class="card">
     <div class="card-body">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="card-title">Field View</h4>
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+        <h4 class="card-title mb-3 mb-md-0">Field View</h4>
         <a href="{{ route('field.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
           class="bi bi-plus-circle"></i>
       <span class="btn-text">Add Country</span></a>
@@ -22,12 +22,12 @@ Field Show
         {{-- <div class="lead pb-2"> --}}
         {{-- </div> --}}
         <div class="table-responsive">
-          <table id="myDataTable" class="table table-striped table-hover">
+          <table id="myDataTable" class="table table-striped table-hover w-100">
             <thead>
               <tr>
-                <th scope="col" width="50%">Name</th>
-                <th scope="col" width="50%">Description</th>
-                <th scope="col" width="50%">Option</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Option</th>
               </tr>
             </thead>
             <tbody>

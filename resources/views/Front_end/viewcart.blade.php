@@ -39,7 +39,7 @@
 
           <div class="card-body">
                <div class="row">
-                    <div class="col-12-12">
+                    <div class="col-md-12">
                          {{-- @php $total = 0 @endphp --}}
                          {{-- @if(session('cart'))
                          @foreach(session('cart') as $id => $product)
@@ -50,7 +50,7 @@
                               <div class="col-sm-2">
                                    <img src="{{url('proimg')}}/{{$cart->product->image}}" style="height: 150px; width: 150px;" class="h1">
                               </div>
-                              <div class="col-sm-6">
+                              <div class="pdetail col-sm-6">
                                    <b>{{ $cart->product->name }}</b> <br>
 
                                    <span class="pt-2 d-flex justify-content-start">
@@ -95,11 +95,11 @@
 
 
 
-     <div class="container py-5">
+     <div class="container text-center py-5">
           <h3 class="py-2 text text-center">You may also like</h3>
           <div class="row">
                @foreach($random as $random)
-               <div class="col-md-3 col-sm-12" style="position: relative">
+               <div class="pimg col-md-3 col-sm-12" style="position: relative">
                     <a href="{{route('front_end.products_details',$random->id) }}" class="proname">
                          <img src="{{url('proimg')}}/{{$random->image}}" data-aos="zoom-in" height="250" width="250" alt="images">
                          @if (Auth::check()) 

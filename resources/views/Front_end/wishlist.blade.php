@@ -14,10 +14,10 @@
                     <div class="col-md-12">
                          <div class="container">
                               <div class="row">
-                                   <div class="col-sm-2">
+                                   <div class="pimg col-sm-2">
                                         <img src="{{url('proimg')}}/{{$wishlist->product->image}}" style="height: 150px; width: 150px;" class="h1">
                                    </div>
-                                   <div class="col-md-10 col-sm-6">
+                                   <div class="pdetail col-sm-6">
                                         <a class="proname" href="{{route('front_end.products_details',$wishlist->product_id)}}">
                                              {{$wishlist->product->name}}
                                              <span class="pt-2 d-flex justify-content-start">

@@ -3,7 +3,6 @@
 Channel Show
 @endsection
 
-</style>
 @section('body')
 
 <div class="container mt-3 px-5">

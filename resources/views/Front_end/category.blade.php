@@ -49,18 +49,18 @@
                <div class="row ">
                     @foreach($product as $product)
 
-                    <div class="col-md-3 col-sm-6" style="position: relative">
+                    <div class="pimg col-md-3 col-sm-6" style="position: relative">
                          <a href="{{ route('front_end.products_details', $product->id) }}">
                               <img src="{{ url('proimg') }}/{{ $product->image }}" data-aos="zoom-in" height="250" width="250" class="img-thumbnail rounded">
                               @if (Auth::check()) 
-                              <div class="wishlist-icon" data-aos="zoom-in" style="position: absolute; left: 175px; top: 10px; right: 10px; ">
+                              <div class="wicon wishlist-icon" data-aos="zoom-in" style="position: absolute;  top: 10px; right: 20px; ">
                                 <a href="javascript:void(0);" class="add-to-wishlist" data-product-id="{{ $product->id }}" data-id="{{ $wishlist[0]->id ?? '-' }}"> 
                                  
                                   <i class="bi bi-heart-fill {{ $wishlist->contains('product_id', $product->id) ? 'active' : '' }}" data-id="{{ $wishlist[0]->id ?? '-' }}" style="z-index: 9999; height: 20px; width: 20px; font-size: 20px;" aria-hidden="true"></i>
                                 </a>
                               </div>  
                               @else
-                              <div class="wishlist-icon" data-aos="zoom-in" style="position: absolute; left: 175px; top: 10px; right: 10px; ">
+                              <div class="wicon wishlist-icon" data-aos="zoom-in" style="position: absolute;  top: 10px; right: 20px; ">
                                 <a href="{{url('myaccount')}}" class="add-to-wishlist" data-product-id="{{ $product->id }}"> 
                                  
                                   <i class="bi bi-heart-fill " style="z-index: 9999; height: 20px; width: 20px; font-size: 20px;" aria-hidden="true"></i>

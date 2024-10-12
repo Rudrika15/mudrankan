@@ -21,13 +21,13 @@
                <input type="hidden" id="product_id" value="{{$product->id}}">
                <img src="{{url('proimg')}}/{{$product->image}}" class="d-block w-100 sticky" alt="img">
               @if(Auth::check())
-               <div class="wishlist-icon"  style="position: absolute; left: 580px; top: 10px; right: 10px; ">
+               <div class="wicon wishlist-icon"  style="position: absolute; top: 10px; right: 22px; ">
                     <a href="javascript:void(0);" class="add-to-wishlist" data-product-id="{{ $product->id }}"  data-id="{{ $wishlist[0]->id ?? '-' }}">
                         <i class="bi bi-heart-fill {{ $wishlist->contains('product_id', $product->id) ? 'active' : '' }}"  data-id="{{ $wishlist[0]->id ??'-' }}" style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                     </a>
                 </div>
                 @else
-                <div class="wishlist-icon"  style="position: absolute; left: 580px; top: 10px; right: 10px; ">
+                <div class="wicon wishlist-icon"  style="position: absolute;  top: 10px; right: 10px; ">
                     <a href="{{url('myaccount')}}" class="add-to-wishlist" data-product-id="{{ $product->id }}"  >
                         <i class="bi bi-heart-fill"   style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                     </a>
@@ -258,24 +258,24 @@
      <h3 class="py-3  text text-center">You may also like</h3>
      <div class="row">
           @foreach($pro as $pro)
-          <div class="col-md-3" style="position: relative;">
+          <div class="pimg col-md-3" style="position: relative;">
                <a href="{{route('front_end.products_details',$pro->id) }}" class="proname">
                     <img src="{{url('proimg')}}/{{$pro->image}}" data-aos="zoom-in" height="300" width="300" alt="images">
                     @if(Auth::check())
-                    <div class="wishlist-icon"  style="position: absolute; left: 275px; top: 10px; right: 10px; ">
-                         <a href="javascript:void(0);"data-aos="zoom-in" class="add-to-wishlist" data-product-id="{{ $pro->id }}"  data-id="{{ $wishlist[0]->id ?? '-' }}">
+                    <div class="wicon wishlist-icon"  style="position: absolute;  top: 10px; right: 20px; ">
+                         <a href="javascript:void(0);" data-aos="zoom-in" class="add-to-wishlist" data-product-id="{{ $pro->id }}"  data-id="{{ $wishlist[0]->id ?? '-' }}">
                              <i class="bi bi-heart-fill {{ $wishlist->contains('product_id', $pro->id) ? 'active' : '' }}"  data-id="{{ $wishlist[0]->id ??'-' }}" style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                          </a>
                      </div>
                      @else
-                     <div class="wishlist-icon"  style="position: absolute; left: 275px; top: 10px; right: 10px; ">
-                         <a href="{{url('myaccount')}}" class="add-to-wishlist" data-product-id="{{ $pro->id }}"  >
+                     <div class="wicon wishlist-icon"  style="position: absolute;  top: 10px; right: 20px; ">
+                         <a href="{{url('myaccount')}}" data-aos="zoom-in" class="add-to-wishlist" data-product-id="{{ $pro->id }}"  >
                              <i class="bi bi-heart-fill"   style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                          </a>
                      </div>
      
                      @endif     
-                    <p class="text-center">{{$pro->name}}</p>
+                    <p class="text-center py-2">{{$pro->name}}</p>
                </a>
           </div>
           @endforeach
@@ -287,28 +287,29 @@
      <h3 class="py-3 text">Recently viewed</h3>
      <a href="{{route('front_end.products_details',$product->id) }}" class="proname">
           <div class="row">
-               <div class="col-md-3" style="position: relative">
+               <div class="pimg col-md-3" style="position: relative">
                     <img src="{{url('proimg')}}/{{$product->image}}" height="300" width="300" alt="images">
                     @if(Auth::check())
-                    <div class="wishlist-icon"  style="position: absolute; left: 270px; top: 10px; right: 10px; ">
+                    <div class="wicon wishlist-icon"  style="position: absolute;  top: 10px; right: 20px; ">
                          <a href="javascript:void(0);" class="add-to-wishlist" data-product-id="{{ $product->id }}"  data-id="{{ $wishlist[0]->id ?? '-' }}">
                              <i class="bi bi-heart-fill {{ $wishlist->contains('product_id', $product->id) ? 'active' : '' }}"  data-id="{{ $wishlist[0]->id ??'-' }}" style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                          </a>
                      </div>
                      @else
-                     <div class="wishlist-icon"  style="position: absolute; left: 275px; top: 10px; right: 10px; ">
+                     <div class="wicon wishlist-icon"  style="position: absolute;  top: 10px; right: 10px; ">
                          <a href="{{url('myaccount')}}" class="add-to-wishlist" data-product-id="{{ $product->id }}"  >
                              <i class="bi bi-heart-fill"   style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                          </a>
                      </div>
      
                      @endif     
-                    <p>{{$pro->name}}</p>
-                    <b class="d-flex justify-content-around"> <i> ₹{{$product->price}}</i>
-                         <small>
-                              <strike> Rs. 1500.00 </strike>
+                    <p class="text-center py-2 mb-0">{{$pro->name}}</p>
+                    <p class="text-center py-1"> 
+                         <strong>Rs. {{$product->price}}</strong>
+                         <small class="ms-2">
+                           <strike> Rs. 1500.00 </strike>
                          </small>
-                    </b>
+                       </p>
                </div>
           </div>
      </a>

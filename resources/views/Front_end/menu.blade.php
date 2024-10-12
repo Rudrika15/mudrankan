@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <nav class=" navbar navbar-expand-lg navbar-light sticky-top bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{route('front_end.index')}}"><img src="{{asset('assets/img/logo.jpg')}}" class="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">

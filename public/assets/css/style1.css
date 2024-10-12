@@ -323,18 +323,42 @@ body {
         flex: 0 0 auto;
         width: 49.333333%;
     }
+    .wicon {
+        top:8px;
+        right: 100px;
+    }
+    .pdetail{
+        margin-left: 20px;
+    }
+    .search {
+        flex: 0 0 auto;
+        width: 70.333333%;
+    }
+
+ 
 }
 @media(max-width: 786px){
     .pimg {
         flex: 0 0 auto;
         width: 50%;
     }
+    .bimg {
+        flex: 0 0 auto;
+        width: 32%;
+    }
+    .bcap {
+        flex: 0 0 auto;
+        width: 59%;
+    }
+    .pdetail{
+        margin-left: 66px;
+    }
+ 
 }
 @media(max-width: 2560px){
     .wicon {
        top:8px;
        right: 45px;
-
     }
 }
 
