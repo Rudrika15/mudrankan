@@ -34,6 +34,8 @@ Category Create
       @endif
       <form action="{{url('backend/market/code')}}" method="post">
         @csrf
+        <input type="hidden" id='user_id' name="user_id" value="{{Auth::user()->id}}">
+        
         <div class="mb-3 mt-3">
           <label for="name">{{__('Name')}}:</label>
           <input type="text" class="form-control" id="name" placeholder="{{__('Enter Name')}}" name="name">

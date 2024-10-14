@@ -32,6 +32,7 @@ Category Edit
       <form action="{{url('backend/market/edit_code')}}" method="post">
         @csrf
         <input type="hidden" name="id" value="{{$data->id}}">
+        <input type="hidden" id='user_id' name="user_id" value="{{Auth::user()->id}}">
 
         <div class="mb-3 mt-3">
           <label for="name">{{__('Name')}}:</label>

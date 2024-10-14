@@ -20,9 +20,9 @@ Pemission Create
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col" width="15%">Name</th>
+                <th scope="col">Name</th>
                 <th scope="col">Guard</th> 
-                <th scope="col" colspan="3" width="1%"></th> 
+                <th scope="col" colspan="3" width="1%">Action</th> 
             </tr>
             </thead>
             <tbody>

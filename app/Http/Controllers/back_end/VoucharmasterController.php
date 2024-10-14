@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Voucharmaster;
 use App\Models\Vouchardetail;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class VoucharmasterController extends Controller
 {
     //
     function index()
     {
-        $data = Voucharmaster::all();
+        $data = Voucharmaster::whereDate('vouchar_expiry', '>=', Carbon::today())->get();
         return view("back_end.voucharmaster.index", compact('data'));
     }
     function create()

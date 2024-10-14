@@ -19,17 +19,17 @@ class Coupon extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function markets()
     {
-        return $this->hasMany(Market::class);
+        return $this->belongsTo(Market::class, 'market_id');
     }
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     // Relationship with discountables

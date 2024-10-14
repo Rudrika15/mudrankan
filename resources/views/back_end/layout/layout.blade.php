@@ -86,9 +86,10 @@
         {{__('Category')}}</a></div>
     <div><a href="{{route('product.show')}}"><i class="bi bi-archive-fill icon"></i> {{__('Products')}}</a></div>
 
-    <div><a href="{{route('option.show')}}"><i class="bi bi-plus-square icon"></i> {{__('Option')}}</a></div>
     <div><a href="{{route('optiongroup.show')}}"> <i class="bi bi-plus-square-fill icon"></i> {{__('Option Group')}}</a>
     </div>
+    <div><a href="{{route('option.show')}}"><i class="bi bi-plus-square icon"></i> {{__('Option')}}</a></div>
+
     <div><a href="{{route('coupon.show')}}"><i class="bi bi-ticket-detailed icon"></i> {{__('Coupon')}}</a></div>
     <div> <a href="{{route('voucharmaster.show')}}"><i class="bi bi-ticket-detailed-fill icon"></i>
         {{__('Vouchar')}}</a>

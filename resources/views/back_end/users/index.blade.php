@@ -17,13 +17,13 @@ Category Create
                 <table id="myDataTable" class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col" width="1%">No</th>
-                            <th scope="col" width="10%">First Name</th>
-                            <th scope="col" width="10%">Last Name</th>
-                            <th scope="col" width="15%">Email</th>
-                            <th scope="col" width="10%">Roles</th>
-                            <th scope="col" width="5%" colspan="3">Action</th>
-                            <th scope="col" width="9%" colspan="2">Assign Role</th>
+                            <th scope="col">No</th>
+                            <th scope="col" >First Name</th>
+                            <th scope="col" >Last Name</th>
+                            <th scope="col" >Email</th>
+                            <th scope="col" >Roles</th>
+                            <th scope="col"  colspan="3">Action</th>
+                            <th scope="col"  colspan="2">Assign Role</th>
 
                         </tr>
                     </thead>
@@ -43,7 +43,7 @@ Category Create
                             <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-bg-warning btn-sm btn-tooltip"><i class="bi bi-eye"></i></a></td>
                             <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen"
                                         aria-hidden="true"></i></a></td>
-                            <td>
+                            <td style="padding-right: 40px;">
                                 <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i
                                         class="bi bi-trash" aria-hidden="true"></i></a>
                             </td>

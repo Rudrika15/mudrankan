@@ -27,7 +27,6 @@ class Market extends Model
     ];
     public function coupons()
     {
-        return $this->belongsTo(Coupon::class);
+        return $this->hasMany(Coupon::class);
     }
-
 }

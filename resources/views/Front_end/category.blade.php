@@ -109,9 +109,10 @@ $(document).ready(function() {
             icon.data('id', ''); 
             window.location.reload();
 
-          } else {
-            alert(response.error); 
           }
+          //  else {
+          //   alert(response.error); 
+          // }
         },
         error: function(xhr) {
           alert('An error occurred. Please try again later.');
@@ -130,9 +131,10 @@ $(document).ready(function() {
             icon.addClass('active'); 
             icon.data('id', response.wishlist_id); 
             window.location.reload();
-          } else {
-            alert(response.error);
-          }
+          } 
+          // else {
+          //   alert(response.error);
+          // }
         },
         error: function(xhr) {
           alert('An error occurred. Please try again later.');

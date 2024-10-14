@@ -43,6 +43,10 @@
                             <a class="nav-link text-uppercase font text-secondary" href="{{route('front_end.viewcart')}}">my cart</a>
                             <hr class="dropdown-divider">
                             @auth
+                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.myprofile',Auth::user()->id)}}">My Profile</a>
+                            @role('seller')
+                            <a class="nav-link text-uppercase text-danger" href="{{route('home.index')}}">My Store</a>
+                            @endrole
                             <a class="nav-link text-uppercase text-danger" href="{{route('front_end.logout')}}">logout</a>
                             @endauth
                             @guest

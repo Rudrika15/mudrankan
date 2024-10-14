@@ -31,8 +31,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
 use Carbon\Carbon;
-use Mail; 
-use Illuminate\Support\Str; 
+use Mail;
+use Illuminate\Support\Str;
 // use Illuminate\Hashing\HashManager;
 class HomeController extends Controller
 {
@@ -254,21 +254,29 @@ class HomeController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/')
-                ->withSuccess('Signed in');
 
-            $string = exec('getmac');
-            $mac = substr($string, 0, 17);
-            // $cart = session()->get('cart', []);
-            $cart = Cart::where('user_id', '=', $mac)->get();
-            if ($cart > 0) {
-                return redirect()->back();
+            if (Auth::user()->hasRole('Admin')) {
+                return redirect()->to('backend/home') // Redirect to admin home if user is Admin
+                    ->withSuccess('Signed in as Admin');
             } else {
-                return redirect('Front_end.myaccount');
+
+                return redirect()->intended('/')
+                    ->withSuccess('Signed in');
+
+                $string = exec('getmac');
+                $mac = substr($string, 0, 17);
+                // $cart = session()->get('cart', []);
+                $cart = Cart::where('user_id', '=', $mac)->get();
+                if ($cart > 0) {
+                    return redirect()->back();
+                } else {
+                    return redirect('Front_end.myaccount');
+                }
             }
         }
         return redirect("/myaccount")->withSuccess('Login details are not valid');
     }
+
     protected function authenticated(Request $request, $user)
     {
         return redirect('/');
@@ -286,8 +294,7 @@ class HomeController extends Controller
     public function showForgetPasswordForm()
     {
 
-       return view('Front_end.forgetPassword');
-
+        return view('Front_end.forgetPassword');
     }
     public function submitForgetPasswordForm(Request $request)
     {
@@ -299,80 +306,55 @@ class HomeController extends Controller
         $token = Str::random(64);
         DB::table('password_resets')->insert([
 
-            'email' => $request->email, 
+            'email' => $request->email,
 
-            'token' => $token, 
+            'token' => $token,
 
             'created_at' => Carbon::now()
 
-          ]);
-        Mail::send('email.demoEmail', ['token' => $token], function($message) use($request){
+        ]);
+        Mail::send('email.demoEmail', ['token' => $token], function ($message) use ($request) {
 
             $message->to($request->email);
 
             $message->subject('Reset Password');
-
         });
         return back()->with('message', 'We have e-mailed your password reset link!');
-
     }
 
-    public function showResetPasswordForm($token) { 
+    public function showResetPasswordForm($token)
+    {
 
         return view('Front_end.forgetPasswordLink', ['token' => $token]);
+    }
+    public function submitResetPasswordForm(Request $request)
 
-     }
-     public function submitResetPasswordForm(Request $request)
+    {
 
-     {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
 
-         $request->validate([
+        $updatePassword = DB::table('password_resets')
+            ->where([
+                'email' => $request->email,
+                'token' => $request->token
+            ])
+            ->first();
 
-             'email' => 'required|email|exists:users',
+        if (!$updatePassword) {
+            return back()->withInput()->with('error', 'Invalid token!');
+        }
+        
+        $user = User::where('email', $request->email)
+            ->update(['password' => Hash::make($request->password)]);
 
-             'password' => 'required|string|min:6|confirmed',
+        DB::table('password_resets')->where(['email' => $request->email])->delete();
 
-             'password_confirmation' => 'required'
-
-         ]);
-
- 
-
-         $updatePassword = DB::table('password_resets')
-
-                             ->where([
-
-                               'email' => $request->email, 
-
-                               'token' => $request->token
-
-                             ])
-
-                             ->first();
-
- 
-
-         if(!$updatePassword){
-
-             return back()->withInput()->with('error', 'Invalid token!');
-
-         }
-
- 
-
-         $user = User::where('email', $request->email)
-
-                     ->update(['password' => Hash::make($request->password)]);
-
-
-
-         DB::table('password_resets')->where(['email'=> $request->email])->delete();
-
- 
-
-         return redirect('/myaccount')->with('message', 'Your password has been changed!');
-
-     }
+        return redirect('/myaccount')->with('message', 'Your password has been changed!');
+    }
     function registercode(Request $request)
     {
         $request->validate([
@@ -440,7 +422,7 @@ class HomeController extends Controller
         // 
 
         $random = Product::all()->random(8);
-        return view("Front_end.viewcart", compact('carts', 'random', 'total','wishlist'));
+        return view("Front_end.viewcart", compact('carts', 'random', 'total', 'wishlist'));
     }
 
     function cartcode(Request $request, $id)
@@ -530,7 +512,7 @@ class HomeController extends Controller
             //     ->where('user_id', '=', $user_id)->get();
             // // return $cart;
             $carts = Cart::with('product')->where('user_id', $user->id)->get();
-            
+
             $total = $carts->reduce(function ($carry, $carts) {
                 return $carry + ($carts->product->price * $carts->quantity);
             }, 0);
@@ -596,43 +578,43 @@ class HomeController extends Controller
     public function applyDiscount(Request $request)
     {
         $discountCode = $request->input('discount_code');
-        $totalPrice = $request->input('total_price'); 
+        $totalPrice = $request->input('total_price');
         $product_id = $request->input('product_ids');
-    
+
         $discount = Coupon::where('code', $discountCode)->first();
-    
+
         if ($discount) {
             $validProducts = Product::whereIn('id', $product_id)
-                ->where('coupon_id', $discount->id) 
+                ->where('coupon_id', $discount->id)
                 ->get();
-    
+
             if ($validProducts->isEmpty()) {
                 return response()->json([
                     'success' => false,
                     'message' => 'The discount code is not valid for these products.'
                 ]);
             }
-    
-      
+
+
             $totalDiscountedPrice = 0;
 
             foreach ($validProducts as $product) {
                 $cartItem = Cart::where('product_id', $product->id)
                     ->where('user_id', Auth::user()->id)
                     ->first();
-    
+
                 if ($cartItem) {
-                    $discountAmount = $discount->discount; 
+                    $discountAmount = $discount->discount;
                     $newItemPrice = $totalPrice - $discountAmount;
-    
+
                     if ($newItemPrice < 0) {
                         $newItemPrice = 0;
                     }
-    
+
                     $totalDiscountedPrice += $newItemPrice;
                 }
             }
-    
+
             return response()->json([
                 'success' => true,
                 'new_price' => $totalDiscountedPrice
@@ -644,22 +626,24 @@ class HomeController extends Controller
             ]);
         }
     }
-    
+
 
     // Address
     function address()
     {
-        $countries = Country::where('status','Active')->get();
-        return view('Front_end.address',compact('countries'));
+        $countries = Country::where('status', 'Active')->get();
+        return view('Front_end.address', compact('countries'));
     }
-    
-    function getstates($countryId){
+
+    function getstates($countryId)
+    {
         $states = State::where('countryId', $countryId)->where('status', 'Active')->get();
         return response()->json($states);
     }
 
-    function getcities($stateId){
-        $cities = City::where('stateId',$stateId)->where('status','Active')->get();
+    function getcities($stateId)
+    {
+        $cities = City::where('stateId', $stateId)->where('status', 'Active')->get();
         return response()->json($cities);
     }
     function addresscode(Request $request)
@@ -681,7 +665,7 @@ class HomeController extends Controller
         $countryName = Country::find($request->country)->countryName;
         $stateName = State::find($request->state)->stateName;
         $cityName = City::find($request->city)->cityName;
-        
+
         $add = new Address();
         $add->user_id = Auth::user()->id;
         $add->email = $request->email;
@@ -706,14 +690,14 @@ class HomeController extends Controller
     public function addressedit($id)
     {
         $address = Address::findOrFail($id);
-        $countries = Country::where('status','Active')->get(); 
-        $states = State::where('status','Active')-> get(); 
-        $cities = City::where('status','Active')->get(); 
+        $countries = Country::where('status', 'Active')->get();
+        $states = State::where('status', 'Active')->get();
+        $cities = City::where('status', 'Active')->get();
 
         return view('Front_end.addressedit', compact('address', 'countries', 'states', 'cities'));
     }
-    
-    function addressupdate(Request $request,$id)
+
+    function addressupdate(Request $request, $id)
     {
         $request->validate([
             'email' => 'required',
@@ -768,5 +752,33 @@ class HomeController extends Controller
     {
         $category = Category::all();
         return view('Front_end.menu', compact('category'));
+    }
+
+    function myprofile($id)
+    {
+        $user = User::find($id);
+        return view('Front_end.myprofile', compact('user'));
+    }
+
+    function myprofileupdate(Request $request, $id)
+    {
+
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'contactNo' => 'required|digits:10',
+        ]);
+        $user = User::find($id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->contactNo = $request->contactNo;
+        if ($request->becomeSeller) {
+            $user->becomeSeller = $request->becomeSeller;
+            $user->assignRole('seller');
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Profile Updated successfully');
     }
 }

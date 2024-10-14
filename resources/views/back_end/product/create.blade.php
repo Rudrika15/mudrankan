@@ -34,6 +34,8 @@ Product create
   @endif
   <form action="{{route('product.code')}}" enctype="multipart/form-data" method="post">
     @csrf
+
+    <input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id}}">
     <div class="mb-3 mt-3">
       <label for="name">{{__('name')}}:</label>
       <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">

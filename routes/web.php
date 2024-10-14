@@ -82,6 +82,9 @@ Route::get('/wishlistdelete/{id}', [HomeController::class, "wishlistdelete"])->n
 Route::get('/register', [HomeController::class, "register"])->name("front_end.register");
 Route::post('/review', [HomeController::class, "review"])->name("front_end.review");
 Route::post('/ask_question', [HomeController::class, "ask_question"])->name("front_end.ask_question");
+Route::get('/myprofile/{id}',[HomeController::class,"myprofile"])->name('front_end.myprofile');
+Route::post('/myprofileu/update/{id}',[HomeController::class,"myprofileupdate"])->name('front_end.myprofileupdate');
+
 
 // checkout
 Route::get('/checkout', [HomeController::class, "checkout"])->name("front_end.checkout");
@@ -151,18 +154,18 @@ Route::get('/Terms-of-service', function () {
 
 Route::get('/backend/home/{id?}', [HomeeController::class, 'index'])->name('home.index');
 
-Route::group(['/backend/middleware' => ['guest']], function () {
+// Route::group(['/backend/middleware' => ['guest']], function () {
 
-  //register routes
-  Route::get('/backend/register', [RegisterController::class, 'show'])->name('register.show');
-  Route::post('/backend/register', [RegisterController::class, 'register'])->name('register.perform');
+//   //register routes
+//   Route::get('/backend/register', [RegisterController::class, 'show'])->name('register.show');
+//   Route::post('/backend/register', [RegisterController::class, 'register'])->name('register.perform');
 
 
-  // Login Routes
+//   // Login Routes
 
-  Route::get('/backend/login', [LoginController::class, 'show'])->name('login.show');
-  Route::post('/backend/login', [LoginController::class, 'login'])->name('login.perform');
-});
+//   Route::get('/backend/login', [LoginController::class, 'show'])->name('login.show');
+//   Route::post('/backend/login', [LoginController::class, 'login'])->name('login.perform');
+// });
 
 Route::group(['/backend/middleware' => ['auth']], function () {});
 

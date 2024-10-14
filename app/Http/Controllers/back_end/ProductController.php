@@ -56,6 +56,7 @@ class ProductController extends Controller
         ]);
 
         $product = new Product();
+        $product->user_id = $request->user_id;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->discount_price = $request->discount_price;
@@ -133,6 +134,7 @@ class ProductController extends Controller
         ]);
         $id = $request->id;
         $product = Product::find($id);
+        $product->user_id = $request->user_id;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->discount_price = $request->discount_price;

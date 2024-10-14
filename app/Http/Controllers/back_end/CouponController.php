@@ -11,19 +11,31 @@ use App\Models\Product;
 use App\Models\Market;
 use App\Models\Category;
 use App\Models\Discountable;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CouponController extends Controller
 {
     //
     function index()
     {
-        $data = Coupon::with(['products','markets','categories'])->get();
+        $userId = Auth::user()->id;
+
+
+        $data = Coupon::where('user_id', $userId)
+            ->whereDate('expires_at', '>=', Carbon::today()) // Only get coupons where expires_at is today or in the future
+            ->with(['products', 'markets', 'categories'])
+            ->get();
+
         return view("back_end.coupon.index", compact('data'));
     }
     function create()
     {
-        $data1 = Product::all();
-        $data2 = Market::all();
+
+        $user = Auth::user()->id;
+
+        $data1 = Product::where('user_id', $user)->get();
+        $data2 = Market::where('user_id', $user)->get();
         $data3 = Category::all();
         return view("back_end.coupon.create", compact('data1', 'data2', 'data3'));
     }
@@ -43,6 +55,7 @@ class CouponController extends Controller
 
         ]);
         $coupon = new Coupon();
+        $coupon->user_id = $request->user_id;
         $coupon->code = $request->code;
         $coupon->discount = $request->discount;
         $coupon->discount_type = $request->discount_type;
@@ -76,8 +89,8 @@ class CouponController extends Controller
         $discountable->coupon_id = $coupon->id;
         $discountable->discountable_type = $coupon->discount_type;
         $discountable->save();
-    
-        
+
+
 
         // $coupon = new Coupon();
         // $coupon->code = $request->code;
@@ -121,16 +134,19 @@ class CouponController extends Controller
         return redirect("backend/coupon/show")
             ->with('success', 'Coupon submit successfully');
     }
-    function edit($id){
+    function edit($id)
+    {
+
+        $user = Auth::user()->id;
 
         $coupon = Coupon::findOrFail($id);
-        $products = Product::all(); 
-        $markets = Market::all();
-        $categories = Category::all(); 
-        return view('back_end.coupon.edit', compact('coupon', 'products', 'markets','categories'));
-
+        $products = Product::where('user_id', $user)->get();
+        $markets = Market::where('user_id', $user)->get();
+        $categories = Category::all();
+        return view('back_end.coupon.edit', compact('coupon', 'products', 'markets', 'categories'));
     }
-    function edit_code(Request $request){
+    function edit_code(Request $request)
+    {
 
         // return $request;
         $id = $request->id;
@@ -146,6 +162,7 @@ class CouponController extends Controller
 
         ]);
         $coupon = Coupon::find($id);
+        $coupon->user_id = $request->user_id;
         $coupon->code = $request->code;
         $coupon->discount = $request->discount;
         $coupon->discount_type = $request->discount_type;
@@ -179,11 +196,10 @@ class CouponController extends Controller
         $discountable->coupon_id = $coupon->id;
         $discountable->discountable_type = $coupon->discount_type;
         $discountable->save();
-    
-        return redirect("backend/coupon/show")
-        ->with('success', 'Coupon submit successfully');
 
-    } 
+        return redirect("backend/coupon/show")
+            ->with('success', 'Coupon submit successfully');
+    }
 
     function coupondelete($id)
     {

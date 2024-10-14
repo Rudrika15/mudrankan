@@ -34,6 +34,7 @@ Product edit
   <form action="{{url('backend/product/edit_code')}}" enctype="multipart/form-data" method="post">
     @csrf
     <input type="hidden" name="id" value="{{$data->id}}">
+    <input type="hidden" name="user_id" id="user_id" value="{{Auth::user()->id}}">
     <div class="mb-3 mt-3">
       <label for="name">{{__('name')}}:</label>
       <input type="text" class="form-control" id="name" value="{{$data->name}}" placeholder="Enter Name" name="name">

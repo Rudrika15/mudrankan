@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace App\Http\Controllers\back_end;
 
@@ -10,43 +10,43 @@ use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
 {
-    public function show()
-    {
-        return view('back_end.auth.register');
-    }
+    // public function show()
+    // {
+    //     return view('back_end.auth.register');
+    // }
 
-    /**
-     * Handle account registration request
-     * 
-     * @param RegisterRequest $request
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email' => 'required',
-            'contactNo' => 'required|digits:10',
-            'password' => 'required|confirmed',
-            'userStatus' => 'required',
-        ]);
+    // /**
+    //  * Handle account registration request
+    //  * 
+    //  * @param RegisterRequest $request
+    //  * 
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function register(Request $request)
+    // {
+    //     $request->validate([
+    //         'firstname' => 'required',
+    //         'lastname' => 'required',
+    //         'email' => 'required',
+    //         'contactNo' => 'required|digits:10',
+    //         'password' => 'required|confirmed',
+    //         'userStatus' => 'required',
+    //     ]);
 
-        $user = new User();
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->contactNo = $request->contactNo;
-        $user->password = $request->password;
-        $user->userStatus = $request->userStatus;
-        $user->status = "Active";
-        $user->save();
+    //     $user = new User();
+    //     $user->firstname = $request->firstname;
+    //     $user->lastname = $request->lastname;
+    //     $user->email = $request->email;
+    //     $user->contactNo = $request->contactNo;
+    //     $user->password = $request->password;
+    //     $user->userStatus = $request->userStatus;
+    //     $user->status = "Active";
+    //     $user->save();
 
-        // $user = User::create($request->validated());
+    //     // $user = User::create($request->validated());
 
-        auth()->login($user);
+    //     auth()->login($user);
 
-        return redirect()->route('login.perform')->with('success', "Account successfully registered.");
-    }
-}
+    //     return redirect()->route('login.perform')->with('success', "Account successfully registered.");
+    // }
+} 

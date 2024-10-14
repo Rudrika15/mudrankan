@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\back_end;
-
 use App\Http\Controllers\Controller;
-
-
 use Illuminate\Http\Request;
 use App\Models\Channel;
 
@@ -35,9 +32,10 @@ class ChannelController extends Controller
             'contact' => 'required|digits:10|numeric|regex:/^[6-9]\d{9}$/',
             'partnership' => 'required',
             'url' => 'required',
-
         ]);
+        
         $channel = new Channel();
+        $channel->user_id = $request->user_id;
         $channel->name = $request->name;
         $channel->address = $request->address;
         $channel->city = $request->city;
@@ -68,10 +66,11 @@ class ChannelController extends Controller
             'contact' => 'required',
             'partnership' => 'required',
             'url' => 'required',
-
         ]);
+        
         $id = $request->id;
         $channel = Channel::find($id);
+        $channel->user_id = $request->user_id;
         $channel->name = $request->name;
         $channel->address = $request->address;
         $channel->city = $request->city;

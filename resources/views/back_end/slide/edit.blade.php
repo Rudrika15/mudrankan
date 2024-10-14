@@ -35,7 +35,7 @@ Slide edit
     <input type="hidden" name="id" value="{{$data->id}}">
     <div class="mb-3 mt-3">
       <label for="order">{{__('Order')}}:</label>
-      <input type="text" class="form-control" id="order" value="{{$data->order_id}}" placeholder="Enter order" name="order">
+      <input type="text" class="form-control" id="order" value="{{$data->order}}" placeholder="Enter order" name="order">
     </div>
 
     <div class="mb-3 mt-3">

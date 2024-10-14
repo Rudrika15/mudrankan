@@ -54,7 +54,7 @@ class SlideController extends Controller
         ]);
 
         $slide = new Slide();
-        $slide->order_id = $request->order;
+        $slide->order = $request->order;
         $slide->text = $request->text;
         $slide->button = $request->button;
         $slide->text_position = $request->text_position;
@@ -107,7 +107,7 @@ class SlideController extends Controller
         ]);
         $id = $request->id;
         $slide = Slide::find($id);
-        $slide->order_id = $request->order;
+        $slide->order = $request->order;
         $slide->text = $request->text;
         $slide->button = $request->button;
         $slide->text_position = $request->text_position;
@@ -148,6 +148,6 @@ class SlideController extends Controller
     {
         App::setLocale($locale);
         session()->put('locale', $locale);
-        return redirect()->back();
+        return redirect()->back();  
     }
 }

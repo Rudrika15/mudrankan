@@ -35,6 +35,7 @@ channel Edit
     <form action="{{url('backend/channel/edit_code')}}" enctype="multipart/form-data" method="post">
       @csrf
       <input type="hidden" name="id" value="{{$data->id}}">
+      <input type="hidden" id="user_id" name="user_id" value="{{Auth::user()->id}}">
 
       <div class="mb-3 mt-3">
         <label for="name">{{__('name')}}:</label>

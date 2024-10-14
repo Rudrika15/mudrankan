@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\back_end;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Channel;
 use Illuminate\Http\Request;
 use App\Models\Market;
+use Illuminate\Support\Facades\Auth;
 
 class MarketController extends Controller
 {
@@ -43,8 +44,12 @@ class MarketController extends Controller
             'active' => 'required',
             'available_for_delivery' => 'required',
         ]);
+        $user = Auth::user()->id;
+        $channel = Channel::where('user_id', $user)->pluck('id')->toArray();
 
         $market = new Market();
+        $market->user_id = $request->user_id;
+        $market->channel_id = json_encode($channel);
         $market->name = $request->name;
         $market->description = $request->description;
         $market->address = $request->address;
@@ -78,8 +83,13 @@ class MarketController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
+        $user = Auth::user()->id;
+        $channel = Channel::where('user_id', $user)->pluck('id')->toArray();
+
         $id = $request->id;
         $market = Market::find($id);
+        $market->user_id = $request->user_id;
+        $market->channel_id = json_encode($channel);
         $market->name = $request->name;
         $market->description = $request->description;
         $market->address = $request->address;

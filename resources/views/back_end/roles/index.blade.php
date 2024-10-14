@@ -20,7 +20,7 @@ Category Create
         
         <table class="table table-striped">
           <tr>
-             <th width="1%">No</th>
+             <th>No</th>
              <th>Name</th>
              <th width="3%" colspan="3">Action</th>
           </tr>

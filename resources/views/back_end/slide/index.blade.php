@@ -44,7 +44,7 @@ Slide show
           <tbody>
             @foreach( $data as $data)
             <tr>
-              <td>{{$data->order_id}}</td>
+              <td>{{$data->order}}</td>
               <td>{{$data->text}}</td>
               <td>{{$data->button}}</td>
               <td>{{$data->text_position}}</td>
