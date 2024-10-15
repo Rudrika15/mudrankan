@@ -23,9 +23,9 @@ class CouponController extends Controller
 
 
         $data = Coupon::where('user_id', $userId)
-            ->whereDate('expires_at', '>=', Carbon::today()) // Only get coupons where expires_at is today or in the future
+            ->whereDate('expires_at', '>=', Carbon::today()) 
             ->with(['products', 'markets', 'categories'])
-            ->get();
+            ->get()->where('status','Active');
 
         return view("back_end.coupon.index", compact('data'));
     }
@@ -34,9 +34,9 @@ class CouponController extends Controller
 
         $user = Auth::user()->id;
 
-        $data1 = Product::where('user_id', $user)->get();
-        $data2 = Market::where('user_id', $user)->get();
-        $data3 = Category::all();
+        $data1 = Product::where('user_id', $user)->where('status','Active')->get();
+        $data2 = Market::where('user_id', $user)->where('status','Active')->get();
+        $data3 = Category::where('status','Active')->get();
         return view("back_end.coupon.create", compact('data1', 'data2', 'data3'));
     }
 
@@ -204,10 +204,15 @@ class CouponController extends Controller
     function coupondelete($id)
     {
         $data = Coupon::find($id);
-        $data->delete();
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/coupon/show")
+            ->with('success', 'Coupon deleted successfully');
+        }
 
         return redirect("backend/coupon/show")
-            ->with('success', 'Coupon deleted successfully');
+            ->with('error', 'Coupon not found');
     }
 
     public function lang($locale)

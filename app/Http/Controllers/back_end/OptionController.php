@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Option;
 use App\Models\Optiongroup;
+use Illuminate\Support\Facades\Auth;
 
 class OptionController extends Controller
 {
@@ -19,13 +20,14 @@ class OptionController extends Controller
             ->get([
                 'options.*', 'optiongroups.name as oname',
                 'options.*', 'products.name as proname'
-            ]);
+            ])->where('status','Active');
         return view("back_end.option.index", compact('data'));
     }
     function create()
     {
-        $data = Optiongroup::all();
-        $data1 = Product::all();
+        $user = Auth::user()->id;
+        $data = Optiongroup::where('status','Active')->get();
+        $data1 = Product::where('status','Active')->where('user_id',$user)->get();
         return view("back_end.option.create", compact('data', 'data1'));
     }
     function edit($id)
@@ -65,8 +67,13 @@ class OptionController extends Controller
     }
     function optiondelete($id)
     {
-        $data = Option::find($id)->delete();
-        return redirect('backend/option/show');
+        $data = Option::find($id);
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect('backend/option/show')->with('success', 'Option deleted successfully');
+        }
+        return redirect('backend/option/show')->with('error', 'Option not found');
     }
 
     function edit_code(Request $request)

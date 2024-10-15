@@ -35,7 +35,9 @@ Category Create
                     <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                <a href="{{ route('roles.destroy', $role->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a></td>
+                    <button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $role->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+
+                {{-- <a href="{{ route('roles.destroy', $role->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a></td> --}}
             </tr>
             @endforeach
         </table>
@@ -47,4 +49,23 @@ Category Create
     </div>
         </div>
     </div>
+<script>
+  function deleteField(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you really want to remove this item from the Role?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = '/backend/roles/' + id;
+      }
+    })
+  }
+</script>
+      
+    
 @endsection

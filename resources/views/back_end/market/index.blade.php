@@ -12,7 +12,7 @@ Category Show
         <h4 class="card-title">Market View</h4>
         <a href="{{ route('market.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
           class="bi bi-plus-circle"></i>
-      <span class="btn-text">Add Market</span></a>
+      <span class="btn-text">Add New Market</span></a>
     </div>
       @if ($message = Session::get('success'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -62,8 +62,10 @@ Category Show
               <td>{{$data->available_for_delivery}}</td>
               <td>
                 <a href="{{ url('backend/market/edit',$data->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>
-                <a href="{{ route('market.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"
-                      aria-hidden="true"></i></a>
+                <button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $data->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+
+                {{-- <a href="{{ route('market.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"
+                      aria-hidden="true"></i></a> --}}
                 @endforeach
               </td>
             </tr>
@@ -74,6 +76,25 @@ Category Show
     </div>
   </div>
 </div>
+
+<script>
+  function deleteField(id) {
+   Swal.fire({
+    title: 'Are you sure?',
+    text: "Do you really want to remove this item from the Market?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove it!'
+   }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = '/backend/market/delete/' + id;
+    }
+   })
+  }
+</script>
+
 {{-- <script>
   $(document).ready(function () {
     $('#myDataTable').DataTable({

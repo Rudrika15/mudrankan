@@ -19,13 +19,13 @@ class SlideController extends Controller
             ->get([
                 'slides.*', 'products.name as pname',
                 'slides.*', 'markets.name as mname'
-            ]);
+            ])->where('status','Active');
         return view("back_end.slide.index", compact('data'));
     }
     function create()
     {
-        $data = Market::all();
-        $data1 = Product::all();
+        $data = Market::where('status','Active')->get();
+        $data1 = Product::where('status','Active')->get();
         return view("back_end.slide.create", compact('data', 'data1'));
     }
     function edit($id)
@@ -83,14 +83,20 @@ class SlideController extends Controller
     {
 
         $data = Slide::find($id);
-        $data->delete();
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/slide/show")
+            ->with('success', 'Slide deleted successfully');
+        }
 
         return redirect("backend/slide/show")
-            ->with('success', 'data deleted successfully');
+            ->with('error', 'Slide not found');
     }
 
     function edit_code(Request $request)
     {
+        // return $request;
         $request->validate([
             'order' => 'required',
             'text' => 'required',
@@ -101,6 +107,7 @@ class SlideController extends Controller
             'background_color' => 'required',
             'indicator_color' => 'required',
             // 'image' => 'required',
+            // 'enabled' => 'required',
             'image_fit' => 'required',
             'product_id' => 'required',
             'market_id' => 'required',
@@ -138,6 +145,8 @@ class SlideController extends Controller
         if($request->enabled){
 
             $slide->enabled = $request->enabled;
+        }else{
+            $slide->enabled = 'off';
         }
 
         $slide->save();

@@ -167,9 +167,8 @@ Route::get('/backend/home/{id?}', [HomeeController::class, 'index'])->name('home
 //   Route::post('/backend/login', [LoginController::class, 'login'])->name('login.perform');
 // });
 
-Route::group(['/backend/middleware' => ['auth']], function () {});
-
-
+Route::group(['middleware' => 'auth'], function () {
+  
 //logout
 Route::get('/backend/logout', [LogoutController::class, 'logout'])->name('logout');
 
@@ -356,3 +355,4 @@ Route::post("/backend/voucharmaster/edit_code", [VoucharmasterController::class,
 
 
 //end vouchar master
+});

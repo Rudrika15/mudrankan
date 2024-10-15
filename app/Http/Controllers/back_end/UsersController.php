@@ -9,14 +9,15 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
     //
     public function index()
     {
-        $users = User::latest()->paginate(5);
-        $roles = Role::get();
+        $users = User::where('status','Active')->latest()->paginate(5);
+        $roles = Role::where('status','Active')->get();
 
         return view('back_end.users.index', compact('users','roles'));
     }
@@ -28,7 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = Role::get();
+        $roles = Role::where('status','Active')->get();
         return view('back_end.users.create', compact('roles'));
     }
 
@@ -52,13 +53,11 @@ class UsersController extends Controller
         $user->lastName = $request->lastName;
         $user->email = $request->email;
         $user->contactNo = $request->contactNo;
-        $user->password = bcrypt('123456');
+        $user->password = 123456;
         $user->save();
         $user->assignRole($request->role);
 
         // $user->assignRole($request->role);
-
-
 
         return redirect()->back()
             ->withSuccess(__('User created successfully.'));
@@ -121,6 +120,10 @@ class UsersController extends Controller
             // Detach the role from the user (assuming the relationship is defined)
             $member->roles()->detach($role);
 
+            $user = User::where('id',$request->userId)->firstOrFail();
+            $user->becomeSeller = 'no';
+            $user->save();
+
             return redirect()->back()->with('success', 'Role removed successfully.');
        
     }
@@ -137,7 +140,7 @@ class UsersController extends Controller
         return view('back_end.users.edit', [
             'user' => $user,
             'userRole' => $user->roles->pluck('name')->toArray(),
-            'roles' => Role::latest()->get()
+            'roles' => Role::latest()->get()->where('status','Active')
         ]);
     }
 
@@ -166,7 +169,7 @@ class UsersController extends Controller
         $user->contactNo = $request->contactNo;
 
         $user->save();
-        $user->syncRoles($request->role);
+        // $user->syncRoles($request->role);
 
 
         return redirect()->back()
@@ -182,9 +185,14 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        if($user){
+            $user->status = "Deleted";
+            $user->save();
+            return redirect()->route('users.index')
+            ->withSuccess(__('User deleted successfully.'));
+        }
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User deleted successfully.'));
+            ->withError(__('User not found.'));
     }
 }

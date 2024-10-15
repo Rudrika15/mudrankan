@@ -13,7 +13,7 @@ class MarketController extends Controller
     //
     function index()
     {
-        $data = Market::all();
+        $data = Market::where('status','Active')->get();
         return view("back_end.market.index", compact('data'));
     }
     function create()
@@ -72,9 +72,13 @@ class MarketController extends Controller
     function marketdelete($id)
     {
         $data = Market::find($id);
-        $data->delete();
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/market/show")->with('success', 'Market deleted successfully');
+        }
         return redirect("backend/market/show")
-            ->with('success', 'Market deleted successfully');
+        ->with('error', 'Market not found');
     }
     function edit_code(Request $request)
     {

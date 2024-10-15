@@ -12,8 +12,9 @@ Productgallery show
         <div class="d-flex gap-2">
           <a href="{{ route('productgallery.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip d-flex align-items-center"><i
             class="bi bi-plus-circle"></i>
-          <span class="btn-text"> Add New Product gallery</span></a>
-          <a href="{{route('product.show')}}" class="btn text-white d-flex align-items-center" style="background-color: #e76a35">Back </a>
+          <span class="btn-text"> Add New Product gallery</span></a> 
+          <a href="{{route('product.show')}}" class="btn btn-bg-blue btn-sm mt-3 btn-tooltip d-flex align-items-center"><i
+            class="bi bi-arrow-return-left"></i><span class="btn-text">Back to View Product</span></a>
       </div>
       </div>
 
@@ -42,7 +43,9 @@ Productgallery show
         <td><img src="{{url('progaimg')}}/{{$data->image}}" class="img-thumbnail" style="width:100px;height:100px"></td>
        <td>
 <a href="{{ url('backend/productgallery/edit',$data->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a> 
-<a href="{{ route('productgallery.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> 
+<button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $data->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+
+{{-- <a href="{{ route('productgallery.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a>  --}}
 @endforeach
 </td>
       </tr>
@@ -52,5 +55,22 @@ Productgallery show
     </div>
   </div>
 </div>
+<script>
+  function deleteField(id) {
+   Swal.fire({
+    title: 'Are you sure?',
+    text: "Do you really want to remove this item from the Product?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove it!'
+   }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = '/backend/productgallery/delete/' + id;
+    }
+   })
+  }
+</script>
 
 @endsection

@@ -13,7 +13,17 @@ class VoucharmasterController extends Controller
     //
     function index()
     {
-        $data = Voucharmaster::whereDate('vouchar_expiry', '>=', Carbon::today())->get();
+        $expiredVouchers = Voucharmaster::whereDate('vouchar_expiry', '<', Carbon::today())
+        ->where('status', 'Active')
+        ->get();
+
+        foreach ($expiredVouchers as $voucher) {
+            $voucher->vouchar_status = 'Inactive';
+            $voucher->status = "Deleted";
+            $voucher->save();
+        }
+        
+        $data = Voucharmaster::whereDate('vouchar_expiry', '>=', Carbon::today())->where('status','Active')->get();
         return view("back_end.voucharmaster.index", compact('data'));
     }
     function create()
@@ -29,7 +39,7 @@ class VoucharmasterController extends Controller
             'vouchar_expiry' => 'required',
             'vouchar_associated_mobile' => 'required|numeric|digits:10',
             'quantity' => 'required',
-            'vouchar_status' => 'required',
+            // 'vouchar_status' => 'required',
 
         ]);
 
@@ -39,7 +49,7 @@ class VoucharmasterController extends Controller
         $voucharmaster->vouchar_expiry = $request->vouchar_expiry;
         $voucharmaster->vouchar_associated_mobile = $request->vouchar_associated_mobile;
         $voucharmaster->quantity = $request->quantity;
-        $voucharmaster->vouchar_status = $request->vouchar_status;
+        // $voucharmaster->vouchar_status = $request->vouchar_status;
         $voucharmaster->save();
 
         $vouchar_id = $voucharmaster->id;
@@ -70,7 +80,7 @@ class VoucharmasterController extends Controller
             'vouchar_expiry' => 'required',
             'vouchar_associated_mobile' => 'required|numeric|digits:10',
             'quantity' => 'required',
-            'vouchar_status' => 'required',
+            // 'vouchar_status' => 'required',
 
         ]);
 
@@ -80,7 +90,7 @@ class VoucharmasterController extends Controller
         $voucharmaster->vouchar_expiry = $request->vouchar_expiry;
         $voucharmaster->vouchar_associated_mobile = $request->vouchar_associated_mobile;
         $voucharmaster->quantity = $request->quantity;
-        $voucharmaster->vouchar_status = $request->vouchar_status;
+        // $voucharmaster->vouchar_status = $request->vouchar_status;
         $voucharmaster->save();
 
         $vouchar_id = $voucharmaster->id;
@@ -102,10 +112,15 @@ class VoucharmasterController extends Controller
     {
 
         $data = Voucharmaster::find($id);
-        $data->delete();
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/voucharmaster/show")
+            ->with('success', 'vouchar deleted successfully');
+        }
 
         return redirect("backend/voucharmaster/show")
-            ->with('success', 'data deleted successfully');
+            ->with('error', 'vouchar not found');
     }
     public function lang($locale)
     {

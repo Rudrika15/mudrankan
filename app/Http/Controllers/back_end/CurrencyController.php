@@ -11,7 +11,7 @@ class CurrencyController extends Controller
     //
     function index()
     {
-        $data = Currency::all();
+        $data = Currency::where('status','Active')->get();
         return view("back_end.currency.index", compact('data'));
     }
     function create()
@@ -46,9 +46,14 @@ class CurrencyController extends Controller
     function currencydelete($id)
     {
         $data = Currency::find($id);
-        $data->delete();
-        return redirect("backend/currency/show")
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/currency/show")
             ->with('success', 'Currency deleted successfully');
+        }
+        return redirect("backend/currency/show")
+            ->with('error', 'Currency not found');
     }
     function edit_code(Request $request)
     {

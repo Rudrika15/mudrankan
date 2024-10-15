@@ -46,7 +46,8 @@ Vouchar show
         <td>{{$data->vouchar_status}}</td>
         <td>
 <a href="{{url('backend/voucharmaster/edit',$data->id)}}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>   
-<a href="{{route('voucharmaster.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> 
+<button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $data->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+{{-- <a href="{{route('voucharmaster.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a>  --}}
 @endforeach
 </td>
       </tr>
@@ -57,6 +58,23 @@ Vouchar show
 </div>
   </div>
 </div>
+<script>
+  function deleteField(id) {
+   Swal.fire({
+    title: 'Are you sure?',
+    text: "Do you really want to remove this item from the Vouchar?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove it!'
+   }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = '/backend/voucharmaster/delete/' + id;
+    }
+   })
+  }
+</script>
 
 @endsection
 

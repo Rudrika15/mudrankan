@@ -11,7 +11,7 @@ class PermissionsController extends Controller
     //
     public function index()
     {   
-        $permissions = Permission::all();
+        $permissions = Permission::where('status','Active')->get();
 
         return view('back_end.permissions.index', [
             'permissions' => $permissions
@@ -42,7 +42,7 @@ class PermissionsController extends Controller
 
         Permission::create($request->only('name'));
 
-        return redirect()->route('back_end.permissions.index')
+        return redirect()->route('permissions.index')
             ->withSuccess(__('Permission created successfully.'));
     }
 
@@ -86,9 +86,14 @@ class PermissionsController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        $permission->delete();
+        if($permission){
+            $permission->status = "Deleted";
+            $permission->save();
+            return redirect()->route('permissions.index')
+            ->withSuccess(__('Permission deleted successfully.'));
+        }
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission deleted successfully.'));
+            ->withError(__('Permission Not found.'));
     }
 }

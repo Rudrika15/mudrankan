@@ -13,12 +13,13 @@
   <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-  <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+  <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link href="{{asset('assets/css/adminstyle.css')}}" rel="stylesheet"></head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body style="background-color: #f6f9ff">
 
@@ -62,7 +63,7 @@
       @guest
       <li class="nav-item">
         {{-- <!-- <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a> --> --}}
-        <a href="{{ route('login.perform') }}" class="btn btn-warning ">Login</a>
+        <a href="{{ route('front_end.myaccount') }}" class="btn btn-warning ">Login</a>
       </li>
       @endguest
 

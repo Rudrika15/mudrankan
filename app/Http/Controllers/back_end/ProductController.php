@@ -17,10 +17,11 @@ class ProductController extends Controller
     {
         $data = Product::join('categories', 'categories.id', '=', 'products.category')
             ->join('markets', 'markets.id', '=', 'products.market')
+            
             ->get([
                 'products.*', 'categories.name as cname',
                 'markets.name as mname'
-            ]);
+            ])->where('status','Active');
 
         return view("back_end.product.index", compact('data'));
     }
@@ -113,9 +114,15 @@ class ProductController extends Controller
     function prodelete($id)
     {
         $data = Product::find($id);
-        $data->delete();
-        return redirect("backend/product/show")
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/product/show")
             ->with('success', 'data deleted successfully');
+
+        }
+        return redirect("backend/product/show")
+            ->with('error', 'Product not found');
     }
     function edit_code(Request $request)
     {

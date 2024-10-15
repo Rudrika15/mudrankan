@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\AllPayment;
 use App\Models\Cart;
 use App\Models\Checkout;
@@ -33,6 +34,7 @@ class RazorpayPaymentController extends Controller
      */
     public function store(Request $request)
     {
+        
         try {
             $input = $request->all();
 
@@ -53,7 +55,7 @@ class RazorpayPaymentController extends Controller
 
             $user = Auth::user();
             $carts = Cart::with('product')->where('user_id', $user->id)->get();
-
+            
             $carts->each(function ($cart) use ($user, $request) {
                 $order = new Order();
                 $order->product_id = $cart->product_id;

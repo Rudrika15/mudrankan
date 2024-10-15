@@ -12,7 +12,7 @@ class FieldController extends Controller
     //
     function index()
     {
-        $data = Field::all();
+        $data = Field::where('status','Active')->get();
         return view("back_end.field.index", compact('data'));
     }
     function create()
@@ -40,10 +40,15 @@ class FieldController extends Controller
     }
     function fielddelete($id)
     {
+        
         $data = Field::find($id);
-        $data->delete();
+        if($data){
+            $data->status = 'Deleted';
+            $data->save();
+            return redirect("backend/field/show")->with('success', 'Field deleted successfully');
+        }
         return redirect("backend/field/show")
-            ->with('success', 'Field deleted successfully');
+            ->with('error', 'Field not found');
     }
     function edit_code(Request $request)
     {

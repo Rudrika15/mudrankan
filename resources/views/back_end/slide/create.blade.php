@@ -111,7 +111,7 @@ Slide Create
 
         <div class="mb-3 mt-3">
           <label for="enabled">{{__('Enabled')}}:</label>
-          <input type="checkbox" id="enabled" name="enabled">
+          <input type="checkbox" id="enabled" name="enabled" value="on">
         </div>
 
         <button type="submit" class="btn text-white" style="background-color: #1d3268">{{__('Submit')}}</button>

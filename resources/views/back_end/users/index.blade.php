@@ -11,9 +11,9 @@ Category Create
                 <h4 class="card-title">Users</h4>
                 <a href="{{ route('users.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip"><i
                         class="bi bi-plus-circle"></i>
-                    <span class="btn-text">Add New Users</span></a>
+                    <span class="btn-text" style=" z-index:999999999">Add New Users</span></a>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" >
                 <table id="myDataTable" class="table table-striped">
                     <thead>
                         <tr>
@@ -44,8 +44,10 @@ Category Create
                             <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen"
                                         aria-hidden="true"></i></a></td>
                             <td style="padding-right: 40px;">
-                                <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i
-                                        class="bi bi-trash" aria-hidden="true"></i></a>
+                                <button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $user->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+
+                                {{-- <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i
+                                        class="bi bi-trash" aria-hidden="true"></i></a> --}}
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-tooltip" data-bs-toggle="modal" style="background-color: #1d3268"
@@ -74,7 +76,7 @@ Category Create
                                                         <option value="">Select Role</option>
                                                         @foreach ($roles as $role)
                                                         @if (
-                                                        !in_array($role->name, ['Franchise Admin', 'Member', 'Admin',
+                                                        !in_array($role->name, ['Franchise Admin', 'Member',
                                                         'Trainer']) &&
                                                         !$user->roles->contains($role->id))
                                                         <option value="{{ $role->id }}">
@@ -145,5 +147,22 @@ Category Create
         </div>
     </div>
 </div>
-
+<script>
+    function deleteField(id) {
+     Swal.fire({
+       title: 'Are you sure?',
+       text: "Do you really want to remove this item from the User?",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, remove it!'
+     }).then((result) => {
+       if (result.isConfirmed) {
+        window.location.href = '/backend/users/destroy/' + id;
+       }
+     })
+    }
+</script>
+  
 @endsection

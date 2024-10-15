@@ -61,10 +61,10 @@ Vouchar Edit
       <input type="text" class="form-control" id="quantity" value="{{$voucharmaster->quantity}}" placeholder="Enter quantity" name="quantity">
     </div>
 
-    <div class="mb-3 mt-3">
+    {{-- <div class="mb-3 mt-3">
       <label for="vouchar_status">vouchar status:</label>
     <input type="text" class="form-control" id="vouchar_status" value="{{$voucharmaster->vouchar_status}}" placeholder="Enter vouchar_status" name="vouchar_status">
-    </div>
+    </div> --}}
     
     <button type="submit" class="btn text-white" style="background-color: #1d3268">Submit</button>
   </form>

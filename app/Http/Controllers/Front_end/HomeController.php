@@ -48,8 +48,8 @@ class HomeController extends Controller
         }
         $pro = Product::inRandomOrder()->limit(4)->get();
         $cat = Category::inRandomOrder()->limit(4)->get();
-        $slide = Slide::inRandomOrder()->limit(4)->get();
-        $bottomslide = Slide::inRandomOrder()->limit(4)->get();
+        $slide = Slide::inRandomOrder()->limit(4)->where('enabled','on')->get();
+        $bottomslide = Slide::inRandomOrder()->limit(4)->where('enabled','on')->get();
 
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -254,7 +254,13 @@ class HomeController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-
+            
+            if (Auth::user()->status === 'Deleted') {
+                // Log out the user and redirect to the login page with a message
+                Auth::logout();
+                return redirect('/myaccount')
+                    ->withSuccess('Your account is deleted. Please Register.');
+            }
             if (Auth::user()->hasRole('Admin')) {
                 return redirect()->to('backend/home') // Redirect to admin home if user is Admin
                     ->withSuccess('Signed in as Admin');
@@ -512,13 +518,14 @@ class HomeController extends Controller
             //     ->where('user_id', '=', $user_id)->get();
             // // return $cart;
             $carts = Cart::with('product')->where('user_id', $user->id)->get();
+            $address = Address::where('user_id',$user->id)->get();
 
             $total = $carts->reduce(function ($carry, $carts) {
                 return $carry + ($carts->product->price * $carts->quantity);
             }, 0);
             $totalquantity = $carts->sum('quantity');
             // $product = Product::where('user_id',Auth::user()->id)->get();
-            return view("Front_end.checkout", compact('add', 'carts', 'total', 'totalquantity'));
+            return view("Front_end.checkout", compact('add', 'carts', 'total', 'totalquantity','address'));
         } else {
             return redirect("/myaccount");
         }
@@ -587,15 +594,13 @@ class HomeController extends Controller
             $validProducts = Product::whereIn('id', $product_id)
                 ->where('coupon_id', $discount->id)
                 ->get();
-
+                
             if ($validProducts->isEmpty()) {
                 return response()->json([
                     'success' => false,
                     'message' => 'The discount code is not valid for these products.'
                 ]);
             }
-
-
             $totalDiscountedPrice = 0;
 
             foreach ($validProducts as $product) {
@@ -626,7 +631,6 @@ class HomeController extends Controller
             ]);
         }
     }
-
 
     // Address
     function address()
@@ -685,7 +689,7 @@ class HomeController extends Controller
         $add->phone = $request->phone;
         $add->save();
 
-        return redirect()->back()->with('success', 'Address Added successfully');
+        return redirect('/checkout')->with('success', 'Address Added successfully');
     }
     public function addressedit($id)
     {

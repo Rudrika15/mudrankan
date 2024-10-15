@@ -144,7 +144,7 @@
 
                               <div class="row py-2">
                                    <div class="card-body text-center">
-                                        @if ($carts->count() > 0)
+                                        @if ($carts->count() > 0 && $address->count() > 0)
                                         <button class="btn reg" id="rzp-button1">Make Payment</button>
                                         @endif
                                    </div>

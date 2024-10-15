@@ -13,8 +13,8 @@ Product show
         <a href="{{ route('product.create') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip d-flex align-items-center"><i
             class="bi bi-plus-circle"></i>
           <span class="btn-text"> Add New Product</span></a>
-          <a href="{{ route('productgallery.show') }}" class="btn btn-bg-orange btn-sm mt-3 btn-tooltip d-flex align-items-center"><i
-            class="bi bi-plus-circle"></i>
+          <a href="{{ route('productgallery.show') }}" class="btn btn-bg-warning btn-sm mt-3 btn-tooltip d-flex align-items-center"><i
+            class="bi bi-eye"></i>
           <span class="btn-text"> View Product Gallery</span></a>
         </div>
       </div>
@@ -70,7 +70,8 @@ Product show
           </td>
           <td>
             <a href="{{ url('backend/product/edit',$data->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a>
-            <a href="{{ route('product.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash" aria-hidden="true"></i></a>
+            <button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $data->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+            {{-- <a href="{{ route('product.delete',$data->id)}}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash" aria-hidden="true"></i></a> --}}
             @endforeach
           </td>
         </tr>
@@ -80,5 +81,23 @@ Product show
 </div>
   </div>
 </div>
+<script>
+  function deleteField(id) {
+   Swal.fire({
+    title: 'Are you sure?',
+    text: "Do you really want to remove this item from the Product?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove it!'
+   }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = '/backend/product/delete/' + id;
+    }
+   })
+  }
+</script>
+
 
 @endsection

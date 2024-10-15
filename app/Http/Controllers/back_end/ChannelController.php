@@ -4,12 +4,13 @@ namespace App\Http\Controllers\back_end;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Channel;
+use Illuminate\Support\Facades\Auth;
 
 class ChannelController extends Controller
 {
     public function index(Request $request)
     {
-        $data = Channel::simplePaginate(0);
+        $data = Channel::where('status','Active')->simplePaginate(0);
         return view("back_end.channel.index", compact('data'));
     }
     function create()
@@ -51,9 +52,14 @@ class ChannelController extends Controller
     function channeldelete($id)
     {
         $data = Channel::find($id);
-        $data->delete();
-        return redirect("backend/channel/show")
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/channel/show")
             ->with('success', 'Channel deleted successfully');
+        }
+        return redirect("backend/channel/show")
+            ->with('error', 'Field not found');
     }
     function edit_code(Request $request)
     {

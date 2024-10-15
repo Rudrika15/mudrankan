@@ -11,7 +11,7 @@ class OptiongroupController extends Controller
     //
     function index()
     {
-        $data=Optiongroup::all();
+        $data=Optiongroup::where('status','Active')->get();
         return view("back_end.optiongroup.index",compact('data'));
     }
     function create()
@@ -40,10 +40,16 @@ class OptiongroupController extends Controller
     }
     function optiongroupdelete($id)
     {
-        $data= Optiongroup::find($id)->delete();
+        $data= Optiongroup::find($id);
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/optiongroup/show")
+            ->with('success','data deleted successfully');
+        }
          // return redirect('/index');
          return redirect("backend/optiongroup/show")
-         ->with('success','data deleted successfully');
+         ->with('error', 'OptionGroup not found');
      
      }
 

@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $data = Category::simplePaginate(0);
+        $data = Category::where('status','Active')->simplePaginate(0);
         return view("back_end.category.index", compact('data'));
     }
     function create()
@@ -44,9 +44,15 @@ class CategoryController extends Controller
     function catdelete($id)
     {
         $data = Category::find($id);
-        $data->delete();
-        return redirect("backend/category/show")
+        if($data){
+            $data->status = 'Deleted';
+            $data->save();
+            return redirect("backend/category/show")
             ->with('success', 'data deleted successfully');
+
+        }
+        return redirect("backend/category/show")
+            ->with('error', 'Field not found');
     }
     function edit_code(Request $request)
     {

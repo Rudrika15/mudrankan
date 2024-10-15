@@ -16,13 +16,13 @@ class ProductgalleryController extends Controller
     {
         // $data = Productgallery::join('products', 'products.id', '=', 'productgalleries.product_id')
         //     ->get(['productgalleries.*', 'products.name as pname']);
-        $data = Productgallery::with('product')->get();
+        $data = Productgallery::with('product')->where('status','Active')->get();
         // return $data;   
         return view("back_end.productgallery.index", compact('data'));
     }
     function create()
     {
-        $data = Product::all();
+        $data = Product::where('status','Active')->get();
         return view("back_end.productgallery.create", compact('data'));
     }
     function edit($id)
@@ -54,10 +54,15 @@ class ProductgalleryController extends Controller
     {
 
         $data = Productgallery::find($id);
-        $data->delete();
+        if($data){
+            $data->status = "Deleted";
+            $data->save();
+            return redirect("backend/productgallery/show")
+            ->with('success', 'data deleted successfully');
+        }
 
         return redirect("backend/productgallery/show")
-            ->with('success', 'data deleted successfully');
+            ->with('error', 'ProductGallery not found');
     }
 
     function edit_code(Request $request)

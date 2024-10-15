@@ -103,7 +103,7 @@ Slide edit
 
     <div class="mb-3 mt-3">
       <label for="enabled">{{__('Enabled')}}:</label>
-      <input type="checkbox" id="enabled" value="checked" name="enabled">
+      <input type="checkbox" id="enabled" value="on" name="enabled"  {{ $data->enabled == 'on' ? 'checked' : '' }}>
     </div>
 
     <div>

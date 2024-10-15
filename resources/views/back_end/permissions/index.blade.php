@@ -1,4 +1,3 @@
-
 @extends('back_end.layout.layout')
 @section('title') 
 Pemission Create
@@ -32,7 +31,9 @@ Pemission Create
                         <td>{{ $permission->guard_name }}</td>
                         <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i class="bi bi-pen" aria-hidden="true"></i></a></td>
                         <td>
-                        <a href="{{ route('permissions.destroy', $permission->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a>
+                            <button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $permission->id }})"><i class="bi bi-trash" aria-hidden="true"></i></button>
+
+                        {{-- <a href="{{ route('permissions.destroy', $permission->id) }}" class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash"  aria-hidden="true"></i></a> --}}
                         </td>
                     </tr>
                 @endforeach
@@ -42,4 +43,22 @@ Pemission Create
     </div>
         </div>
     </div>
+<script>
+  function deleteField(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you really want to remove this item from the Permission?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = '/backend/permissions/' + id;
+      }
+    })
+  }
+</script>
+    
 @endsection

@@ -55,7 +55,7 @@ Update User
                 @endif
             </div>
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="role" class="form-label">Role</label>
                 <select class="form-control" name="role" required>
                     <option value="">Select role</option>
@@ -68,7 +68,7 @@ Update User
                 @if ($errors->has('role'))
                 <span class="text-danger text-left">{{ $errors->first('role') }}</span>
                 @endif
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn text-white" style="background-color: #1d3268">Update user</button>
         </form>

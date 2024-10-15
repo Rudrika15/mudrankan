@@ -23,7 +23,7 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {   
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC')->where('status','Active')->paginate(5);
         return view('back_end.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -35,7 +35,7 @@ class RolesController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::get();
+        $permissions = Permission::where('status','Active')->get();
         return view('back_end.roles.create', compact('permissions'));
     }
     
@@ -118,9 +118,15 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+        if($role){
+            $role->status = "Deleted";
+            $role->save();
+            return redirect()->route('roles.index')
+            ->with('success','Role deleted successfully');
+
+        }
 
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+                        ->with('erro','Role not found');
     }
 }
