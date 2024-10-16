@@ -160,7 +160,7 @@
                               <input type="hidden" name="product_id" value="{{$product->id}}">
                               <div class="mb-3">
                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                   <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                                   <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                    </div>
                               </div>
@@ -182,12 +182,17 @@
      <div class="d-flex justify-content-between">
           <div class="first pb-5">
                <h2><i>Customer Review</i></h2>
+               @if(Auth::user())
+
                <i class="bi bi-star"></i>
                <i class="bi bi-star"></i>
                <i class="bi bi-star"></i>
                <i class="bi bi-star"></i>
                <i class="bi bi-star"></i>
+               
                <small class="ps-1">Be the first to write a review</small>
+          
+          @endif
           </div>
           <div class="second">
                <button id="button" class="btn">View Review</button><br><br>
@@ -197,6 +202,7 @@
 
      <div class="container">
           <div id="div3" style="display:none;">
+               @if(Auth::user())
 
                <hr>
                <form class="row g-3" action="{{route('front_end.review')}}" method="post">
@@ -212,11 +218,11 @@
                                         <option value="">Anonymous</option>
                                    </select> ) --}}
                               </label></b>
-                         <input type="text" name="username" class="form-control" id="username" require>
+                         <input type="text" name="username" class="form-control" id="username" required>
                     </div>
                     <div class="col-md-12">
                          <b><label for="email" class="form-label">Email</label></b>
-                         <input type="email" name="email" class="form-control" id="email">
+                         <input type="email" name="email" class="form-control" id="email" required>
                     </div>
                     <div class="col-md-12 rating">
                          <i class="rating__star far fa-star" data-value="1"></i>
@@ -236,6 +242,8 @@
                          <button type="submit" class="btn reg">Submit Review</button>
                     </div>
                </form>
+          
+               @endif
                <br>
                <h4>View All Reviews</h4>
                <hr>

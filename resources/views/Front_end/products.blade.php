@@ -14,20 +14,20 @@
    </style>
    
 
-<div class="">
-     <div class="row">
-          <div class="col-md-12 ">
+{{-- <div class="">
+     <div class="row "> --}}
+          <div class="col-md-12">
                <div class="proimg">
                     <h2 class="text-light">
                          <a class="home" href="#"></a>
                     </h2>
                </div>
           </div>
-     </div>
-</div>
+     {{-- </div>
+</div> --}}
 
 
-<div class="container pt-5">
+<div class="container pt-5 mb-4">
 
      <hr>
 
@@ -36,32 +36,32 @@
           <h4><i class="bi bi-grid-fill p-2"></i></h4>
           <h4><i class="bi bi-list p-2"></i></h4> -->
      </div>
-     <h3 class="p-5 text text-center">Products</h3>
+     <h3 class=" p-5 text text-center">Products</h3>
      <div class="row text-center">
           @foreach($product as $product)
-          <div class="col-md-3 col-sm-6" style="position: relative">
+          <div class="pimg col-md-3 col-sm-6" style="position: relative">
 
                <a href="{{route('front_end.products_details',$product->id) }}" class="proname">
                     <img src="{{url('proimg')}}/{{$product->image}}" height="250" width="250" data-aos="zoom-in">
                     @if (Auth::check()) 
-                    <div class="wishlist-icon" data-aos="zoom-in" style="position: absolute; left: 230px; top: 10px; right: 10px; ">
-                      <a href="javascript:void(0);" class="add-to-wishlist" data-product-id="{{ $product->id }}" data-id="{{ $wishlist[0]->id ?? '-' }}"> 
+                    <div class="wicon wishlist-icon" data-aos="zoom-in" style="position: absolute; left: 230px; top: 10px; right: 10px; ">
+                      <a href="javascript:void(0);" class="add-to-wishlist proname" data-product-id="{{ $product->id }}" data-id="{{ $wishlist[0]->id ?? '-' }}"> 
                        
                         <i class="bi bi-heart-fill {{ $wishlist->contains('product_id', $product->id) ? 'active' : '' }}" data-id="{{ $wishlist[0]->id ?? '-' }}" style="z-index: 9999; height: 20px; width: 20px; font-size: 20px;" aria-hidden="true"></i>
                       </a>
                     </div>  
                     @else
-                    <div class="wishlist-icon" data-aos="zoom-in" style="position: absolute; left: 230px; top: 10px; right: 10px; ">
+                    <div class="wicon wishlist-icon" data-aos="zoom-in" style="position: absolute; left: 230px; top: 10px; right: 10px; ">
                       <a href="{{url('myaccount')}}" class="add-to-wishlist" data-product-id="{{ $product->id }}"> 
                        
                         <i class="bi bi-heart-fill " style="z-index: 9999; height: 20px; width: 20px; font-size: 20px;" aria-hidden="true"></i>
                       </a>
                     </div> 
                 @endif
-                    <p class="d-flex justify-content-center pt-2">
+                    <p class="text-center py-2 mb-0">
                          {{$product->name}}
                     </p>
-                    <p class="d-flex justify-content-center">
+                    <p class="text-center py-1">
                          ₹{{$product->price}}
                     </p>
                </a>
@@ -74,27 +74,27 @@
      <h3 class="p-5 text">Recently viewed</h3>
      <div class="container">
           <div class="row text-center">
-               <div class="col-md-3" style="position: relative">
+               <div class="pimg col-md-3" style="position: relative">
                     <a href="{{route('front_end.products_details',$pro->id) }}" class="proname">
                          <img src="{{url('proimg')}}/{{$pro->image}}" height="300" width="300" alt="images">
                          @if (Auth::check()) 
-                         <div class="wishlist-icon" style="position: absolute; left: 275px; top: 10px; right: 10px; ">
+                         <div class="wicon wishlist-icon" style="position: absolute; left: 275px; top: 10px; right: 10px; ">
                            <a href="javascript:void(0);" class="add-to-wishlist" data-product-id="{{ $pro->id }}" data-id="{{ $wishlist[0]->id ?? '-' }}"> 
                             
                              <i class="bi bi-heart-fill {{ $wishlist->contains('product_id', $pro->id) ? 'active' : '' }}" data-id="{{ $wishlist[0]->id ?? '-' }}" style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                            </a>
                          </div>  
                          @else
-                         <div class="wishlist-icon" style="position: absolute; left: 275px; top: 10px; right: 10px; ">
+                         <div class="wicon wishlist-icon" style="position: absolute; left: 275px; top: 10px; right: 10px; ">
                            <a href="{{url('myaccount')}}" class="add-to-wishlist" data-product-id="{{ $pro->id }}"> 
                             
                              <i class="bi bi-heart-fill " style="z-index: 9999; height: 30px; width: 30px; font-size: 30px;" aria-hidden="true"></i>
                            </a>
                          </div> 
                      @endif     
-                         <p class="">{{$pro->name}}</p>
-                         <b class="d-flex justify-content-around"> <i> ₹{{$pro->price}}</i>
-                              <small>
+                         <p class="text-center py-2 mb-0">{{$pro->name}}</p>
+                         <b class="text-center py-1"> <i> ₹{{$pro->price}}</i>
+                              <small class="m-3">
                                    <strike> Rs. 1500.00 </strike>
                               </small>
                          </b>
@@ -126,7 +126,7 @@ $(document).ready(function() {
             icon.data('id', ''); 
             window.location.reload();
           } else {
-            alert(response.error); 
+            // alert(response.error); 
           }
         },
         error: function(xhr) {
@@ -147,7 +147,7 @@ $(document).ready(function() {
             icon.data('id', response.wishlist_id); 
             window.location.reload();
           } else {
-            alert(response.error);
+            // alert(response.error);
           }
         },
         error: function(xhr) {

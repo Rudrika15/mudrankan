@@ -60,13 +60,13 @@
                             </div>
                             <input type="password" name="password" class="form-control" id="password" required>
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="userStatus" class="form-label">User Status</label>
                             <select class="form-control" name="userStatus" id="userStatus">
                                 <option value="Online">Online</option>
                                 <option value="Offline">Offline</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn reg w-100">Create</button>
                     </form>
                     <div class="py-2 text-center">

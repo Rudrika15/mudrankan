@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link active text-uppercase" aria-current="page" href="{{route('front_end.index')}}">home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.products')}}">products</a>
+                    </li>
 
                     @foreach($categories as $category)
                     <li class="nav-item">
@@ -39,18 +42,18 @@
                     <div class="btn-group">
                         <a href="" class="dropdown-toggle nav-link text-uppercase" data-bs-toggle="dropdown" aria-expanded="true">my account</a>
                         <ul class="dropdown-menu">
-                            <a class="nav-link text-uppercase font text-secondary" href="{{route('front_end.wishlist')}}">wishlist</a>
-                            <a class="nav-link text-uppercase font text-secondary" href="{{route('front_end.viewcart')}}">my cart</a>
+                            <a class="nav-link text-uppercase font text-secondary" href="{{route('front_end.wishlist')}}"><i class="bi bi-heart"></i> wishlist</a>
+                            <a class="nav-link text-uppercase font text-secondary" href="{{route('front_end.viewcart')}}"><i class="bi bi-cart"></i> my cart</a>
                             <hr class="dropdown-divider">
                             @auth
-                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.myprofile',Auth::user()->id)}}">My Profile</a>
+                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.myprofile',Auth::user()->id)}}"><i class="bi bi-person"></i> My Profile</a>
                             @role('Seller')
-                            <a class="nav-link text-uppercase text-danger" href="{{route('home.index')}}">My Store</a>
+                            <a class="nav-link text-uppercase text-danger" href="{{route('home.index')}}"><i class="bi bi-shop"></i> My Store</a>
                             @endrole
-                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.logout')}}">logout</a>
+                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.logout')}}"><i class="bi bi-box-arrow-right"></i> logout</a>
                             @endauth
                             @guest
-                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.myaccount')}}">login</a>
+                            <a class="nav-link text-uppercase text-danger" href="{{route('front_end.myaccount')}}"><i class="bi bi-box-arrow-left"></i> login</a>
                             @endguest
                         </ul>
                     </div>

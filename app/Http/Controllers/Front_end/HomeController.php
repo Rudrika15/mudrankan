@@ -42,11 +42,11 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if ($id == 0) {
-            $product = Product::all();
+            $product = Product::where('status','Active')->get();
         } else {
-            $product = Product::where('category', '=', $id)->get();
+            $product = Product::where('category', '=', $id)->where('status','Active')->get();
         }
-        $pro = Product::inRandomOrder()->limit(4)->get();
+        $pro = Product::inRandomOrder()->limit(4)->where('status','Active')->get();
         $cat = Category::inRandomOrder()->limit(4)->get();
         $slide = Slide::inRandomOrder()->limit(4)->where('enabled','on')->get();
         $bottomslide = Slide::inRandomOrder()->limit(4)->where('enabled','on')->get();
@@ -68,6 +68,7 @@ class HomeController extends Controller
     // product view
     function products($id = 0)
     {
+        
         $user = Auth::user();
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -76,9 +77,9 @@ class HomeController extends Controller
         }
         $pro = Product::all()->first();
         if ($id == 0) {
-            $product = Product::all();
+            $product = Product::where('status','Active')->get();
         } else {
-            $product = Product::where('category', '=', $id)->get();
+            $product = Product::where('category', '=', $id)->where('status','Active')->get();
         }
         return view('Front_end.products', compact('product', 'pro', 'wishlist'));
     }
@@ -89,7 +90,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $product = Product::find($id);
         $review = Review::all();
-        $pro = Product::all()->take(4);
+        $pro = Product::where('status','Active')->get()->take(4);
 
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -157,7 +158,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $category = Category::all();
-        $product = Product::where('category', $id)->get();
+        $product = Product::where('category', $id)->where('status','Active')->get();
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
         } else {
@@ -369,7 +370,7 @@ class HomeController extends Controller
             'email' => 'required',
             'contactNo' => 'required|digits:10',
             'password' => 'required',
-            'userStatus' => 'required',
+            // 'userStatus' => 'required',
         ]);
 
         $user = new User();
@@ -378,7 +379,7 @@ class HomeController extends Controller
         $user->email = $request->email;
         $user->contactNo = $request->contactNo;
         $user->password = $request->password;
-        $user->userStatus = $request->userStatus;
+        // $user->userStatus = $request->userStatus;
         $user->status = "Active";
         $user->save();
 
@@ -427,7 +428,7 @@ class HomeController extends Controller
         }
         // 
 
-        $random = Product::all()->random(8);
+        $random = Product::where('status','Active')->get()->random(8);
         return view("Front_end.viewcart", compact('carts', 'random', 'total', 'wishlist'));
     }
 

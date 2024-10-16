@@ -40,7 +40,7 @@ class CouponController extends Controller
             $data = Coupon::where('user_id', $userId)
             ->whereDate('expires_at', '>=', Carbon::today()) 
             ->with(['products', 'markets', 'categories'])
-            ->get()->where('status','Active');
+            ->get()->where('status','Active')->where('user_id',$userId);
 
         }
 

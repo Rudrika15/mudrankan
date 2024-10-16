@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Productgallery;
-
+use Illuminate\Support\Facades\Auth;
 
 class ProductgalleryController extends Controller
 {
@@ -25,21 +25,51 @@ class ProductgalleryController extends Controller
     //
     function index()
     {
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data = Productgallery::with('product')->where('status','Active')->get();
+
+        }else{
+            $data = Productgallery::with('product')->where('user_id',$user)->where('status','Active')->get();
+
+        }
         // $data = Productgallery::join('products', 'products.id', '=', 'productgalleries.product_id')
         //     ->get(['productgalleries.*', 'products.name as pname']);
-        $data = Productgallery::with('product')->where('status','Active')->get();
+        // $data = Productgallery::with('product')->where('status','Active')->get();
         // return $data;   
         return view("back_end.productgallery.index", compact('data'));
     }
     function create()
     {
-        $data = Product::where('status','Active')->get();
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data = Product::where('status','Active')->get();
+
+        }else{
+            $data = Product::where('user_id',$user)->where('status','Active')->get();
+
+        }
         return view("back_end.productgallery.create", compact('data'));
     }
     function edit($id)
     {
         $data = Productgallery::find($id);
-        $data1 = Product::all();
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data1 = Product::where('status','Active')->get();
+
+        }
+        else{
+            $data1 = Product::where('user_id',$user)->where('status','Active')->get();
+
+        }
+
         return view("back_end.productgallery.edit", compact('data', 'data1'));
     }
     function Productgallery_code(Request $request)

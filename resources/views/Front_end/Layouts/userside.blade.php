@@ -53,8 +53,8 @@
 
         </div>
     </div> --}}
-    @include('Front_end.menu')
-    @yield('content')
+@include('Front_end.menu')
+@yield('content')
 
     <div class="py-1">
         <footer class="footer">
