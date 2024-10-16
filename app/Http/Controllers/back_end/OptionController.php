@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Auth;
 
 class OptionController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:option-index',['only' => ['index']]);
+        $this->middleware('permission:option-create',['only' => ['create','option_code']]);
+        $this->middleware('permission:option-edit',['only' => ['edit','edit_code']]);
+        $this->middleware('permission:option-delete',['only' => ['optiondelete']]);
+
+    }
+
     //
     function index()
     {
@@ -25,16 +35,33 @@ class OptionController extends Controller
     }
     function create()
     {
+        $roles = Auth::user()->roles->first();
         $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data1 = Product::where('status','Active')->get();
+
+        }else{
+            
+            $data1 = Product::where('status','Active')->where('user_id',$user)->get();
+        }
         $data = Optiongroup::where('status','Active')->get();
-        $data1 = Product::where('status','Active')->where('user_id',$user)->get();
         return view("back_end.option.create", compact('data', 'data1'));
     }
     function edit($id)
     {
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data1 = Product::where('status','Active')->get();
+
+        }else{
+            $data1 = Product::where('status','Active')->where('user_id',$user)->get();
+
+        }
         $data = Option::find($id);
-        $data2 = Optiongroup::all();
-        $data1 = Product::all();
+        $data2 = Optiongroup::where('status','Active')->get();
         return view("back_end.option.edit", compact('data', 'data1', 'data2'));
     }
 

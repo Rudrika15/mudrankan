@@ -8,6 +8,16 @@ use App\Models\Currency;
 
 class CurrencyController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:currency-index',['only' => ['index']]);
+        $this->middleware('permission:currency-create',['only' => ['create','currency_code']]);
+        $this->middleware('permission:currency-edit',['only' => ['edit','edit_code']]);
+        $this->middleware('permission:currency-delete',['only' => ['currencydelete']]);
+
+    }
+    
     //
     function index()
     {

@@ -8,9 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class ChannelController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:channel-index',['only' => ['index']]);
+        $this->middleware('permission:channel-create',['only' => ['create','channel_code']]);
+        $this->middleware('permission:channel-edit',['only' => ['edit','edit_code']]);
+        $this->middleware('permission:channel-delete',['only' => ['channeldelete']]);        
+    }
+    
     public function index(Request $request)
     {
-        $data = Channel::where('status','Active')->simplePaginate(0);
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data = Channel::where('status','Active')->simplePaginate(0);
+        }else{
+            $data = Channel::where('status','Active')->where('user_id',$user)->simplePaginate(0);
+        }
         return view("back_end.channel.index", compact('data'));
     }
     function create()

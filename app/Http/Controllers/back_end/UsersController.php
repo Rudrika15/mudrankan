@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:users-index' , ['only' => ['index','show']]); 
+        $this->middleware('permission:users-create' , ['only' => ['create','store']]);         
+        $this->middleware('permission:users-assign' , ['only' => ['assignRole','removeRole']]);        
+        $this->middleware('permission:users-edit' , ['only' => ['edit','update']]);        
+        $this->middleware('permission:users-delete' , ['only' => ['destroy']]);        
+      
+    }
+
+
     //
     public function index()
     {

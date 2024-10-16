@@ -16,16 +16,33 @@ use Illuminate\Support\Facades\Auth;
 
 class CouponController extends Controller
 {
-    //
+    
+    function __construct()
+    {
+        $this->middleware('permission:coupon-index',['only' => ['index']]);
+        $this->middleware('permission:coupon-create',['only' => ['create','coupon_code']]);
+        $this->middleware('permission:coupon-edit',['only' => ['edit','edit_code']]);
+        $this->middleware('permission:coupon-delete',['only' => ['coupondelete']]);
+
+    }
+
     function index()
     {
         $userId = Auth::user()->id;
+        $roles = Auth::user()->roles->first();
+        if($roles->name == 'Admin')
+        {
+            $data = Coupon::whereDate('expires_at', '>=', Carbon::today()) 
+            ->with(['products', 'markets', 'categories'])
+            ->get()->where('status','Active');
 
-
-        $data = Coupon::where('user_id', $userId)
+        }else{
+            $data = Coupon::where('user_id', $userId)
             ->whereDate('expires_at', '>=', Carbon::today()) 
             ->with(['products', 'markets', 'categories'])
             ->get()->where('status','Active');
+
+        }
 
         return view("back_end.coupon.index", compact('data'));
     }
@@ -33,9 +50,18 @@ class CouponController extends Controller
     {
 
         $user = Auth::user()->id;
+        $roles = Auth::user()->roles->first();
+        if($roles->name == 'Admin')
+        {
+            $data1 = Product::where('status','Active')->get();
+            $data2 = Market::where('status','Active')->get();
 
-        $data1 = Product::where('user_id', $user)->where('status','Active')->get();
-        $data2 = Market::where('user_id', $user)->where('status','Active')->get();
+
+        }else{
+            $data1 = Product::where('user_id', $user)->where('status','Active')->get();
+            $data2 = Market::where('user_id', $user)->where('status','Active')->get();
+
+        }
         $data3 = Category::where('status','Active')->get();
         return view("back_end.coupon.create", compact('data1', 'data2', 'data3'));
     }

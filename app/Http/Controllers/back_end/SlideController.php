@@ -9,9 +9,20 @@ use App\Models\Slide;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SlideController extends Controller
 {
+    
+    function __construct()
+    {
+        $this->middleware('permission:slide-index' , ['only' => ['index']]);
+        $this->middleware('permission:slide-create' , ['only' => ['create','slide_code']]);
+        $this->middleware('permission:slide-edit' , ['only' => ['edit','edit_code']]);
+        $this->middleware('permission:slide-delete' , ['only' => ['slidedelete']]);
+
+    }
+    
     //
     function index()
     {
@@ -24,15 +35,35 @@ class SlideController extends Controller
     }
     function create()
     {
-        $data = Market::where('status','Active')->get();
-        $data1 = Product::where('status','Active')->get();
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data = Market::where('status','Active')->get();
+            $data1 = Product::where('status','Active')->get();
+    
+        }else{
+            $data = Market::where('status','Active')->where('user_id',$user)->get();
+            $data1 = Product::where('status','Active')->where('user_id',$user)->get();
+    
+        }
         return view("back_end.slide.create", compact('data', 'data1'));
     }
     function edit($id)
     {
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data1 = Product::where('status','Active')->get();
+            $data2 = Market::where('status','Active')->get();
+    
+        }else{
+            $data1 = Product::where('status','Active')->where('user_id',$user)->get();
+            $data2 = Market::where('status','Active')->where('user_id',$user)->get();
+    
+        }
         $data = slide::find($id);
-        $data1 = Product::all();
-        $data2 = Market::all();
         return view("back_end.slide.edit", compact('data', 'data1', 'data2'));
     }
     function slide_code(Request $request)

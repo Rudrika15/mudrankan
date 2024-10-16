@@ -11,6 +11,17 @@ use App\Models\Productgallery;
 
 class ProductgalleryController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:productgallery-index' , ['only' => ['index']]);
+        $this->middleware('permission:productgallery-create' , ['only' => ['create','Productgallery_code']]);
+        $this->middleware('permission:productgallery-edit' , ['only' => ['edit','edit_code']]);
+        $this->middleware('permission:productgallery-delete' , ['only' => ['progallerydelete']]);
+
+    }
+
+
     //
     function index()
     {

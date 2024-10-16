@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\back_end;
+
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -11,23 +13,26 @@ use Spatie\Permission\Models\Permission;
 class RolesController extends Controller
 {
     //
-    function __construct()
-    {
-        
+    function __construct() {
+
+        $this->middleware('permission:roles-index' , ['only' => ['index','show']]);
+        $this->middleware('permission:roles-create' , ['only' => ['create','store']]);
+        $this->middleware('permission:roles-edit' , ['only' => ['edit','update']]);
+        $this->middleware('permission:roles-delete' , ['only' => ['destroy']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
-        $roles = Role::orderBy('id','DESC')->where('status','Active')->paginate(5);
-        return view('back_end.roles.index',compact('roles'))
+    {
+        $roles = Role::orderBy('id', 'DESC')->where('status', 'Active')->paginate(5);
+        return view('back_end.roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,10 +40,10 @@ class RolesController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::where('status','Active')->get();
+        $permissions = Permission::where('status', 'Active')->get();
         return view('back_end.roles.create', compact('permissions'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -51,12 +56,12 @@ class RolesController extends Controller
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
-    
+
         $role = Role::create(['name' => $request->get('name')]);
         $role->syncPermissions($request->get('permission'));
-    
+
         return redirect()->back()
-                        ->with('success','Role created successfully');
+            ->with('success', 'Role created successfully');
     }
 
     /**
@@ -69,10 +74,10 @@ class RolesController extends Controller
     {
         $role = $role;
         $rolePermissions = $role->permissions;
-    
+
         return view('back_end.roles.show', compact('role', 'rolePermissions'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,10 +89,10 @@ class RolesController extends Controller
         $role = $role;
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $permissions = Permission::get();
-    
+
         return view('back_end.roles.edit', compact('role', 'rolePermissions', 'permissions'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -101,13 +106,13 @@ class RolesController extends Controller
             'name' => 'required',
             'permission' => 'required',
         ]);
-        
+
         $role->update($request->only('name'));
-    
+
         $role->syncPermissions($request->get('permission'));
-    
+
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+            ->with('success', 'Role updated successfully');
     }
 
     /**
@@ -118,15 +123,14 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        if($role){
+        if ($role) {
             $role->status = "Deleted";
             $role->save();
             return redirect()->route('roles.index')
-            ->with('success','Role deleted successfully');
-
+                ->with('success', 'Role deleted successfully');
         }
 
         return redirect()->route('roles.index')
-                        ->with('erro','Role not found');
+            ->with('erro', 'Role not found');
     }
 }

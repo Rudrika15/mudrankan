@@ -9,6 +9,16 @@ use App\Models\Field;
 
 class FieldController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:field-index',['only' => ['index']]);
+        $this->middleware('permission:field-create',['only' => ['create','field_code']]);
+        $this->middleware('permission:field-edit',['only' => ['edit','edit_code']]);
+        $this->middleware('permission:field-delete',['only' => ['fielddelete']]);
+
+    }
+    
     //
     function index()
     {

@@ -10,10 +10,29 @@ use Illuminate\Support\Facades\Auth;
 
 class MarketController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:market-index',['only' => ['index']]);  
+        $this->middleware('permission:market-create',['only' => ['create','market_code']]);   
+        $this->middleware('permission:market-edit',['only' => ['edit','edit_code']]);   
+        $this->middleware('permission:market-delete',['only' => ['marketdelete']]);   
+ 
+    }
+    
     //
     function index()
     {
-        $data = Market::where('status','Active')->get();
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data = Market::where('status','Active')->get();
+    
+        }else{
+            $data = Market::where('status','Active')->where('user_id',$user)->get();
+
+        }
         return view("back_end.market.index", compact('data'));
     }
     function create()

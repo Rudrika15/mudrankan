@@ -10,12 +10,28 @@ use App\Models\Category;
 use App\Models\Productgallery;
 use App\Models\Market;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:product-index' , ['only' => ['index']]);
+        $this->middleware('permission:product-create' , ['only' => ['create','Product_code']]);
+        $this->middleware('permission:product-edit' , ['only' => ['edit','edit_code']]);
+        $this->middleware('permission:product-delete' , ['only' => ['prodelete']]);
+
+    }
+
+
     function index()
     {
-        $data = Product::join('categories', 'categories.id', '=', 'products.category')
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data = Product::join('categories', 'categories.id', '=', 'products.category')
             ->join('markets', 'markets.id', '=', 'products.market')
             
             ->get([
@@ -23,19 +39,48 @@ class ProductController extends Controller
                 'markets.name as mname'
             ])->where('status','Active');
 
+            
+        }else{
+            $data = Product::join('categories', 'categories.id', '=', 'products.category')
+            ->join('markets', 'markets.id', '=', 'products.market')
+            
+            ->get([
+                'products.*', 'categories.name as cname',
+                'markets.name as mname'
+            ])->where('status','Active')->where('user_id',$user);
+        }
         return view("back_end.product.index", compact('data'));
     }
     function create()
     {
         $data = Category::all();
-        $data1 = Market::all();
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data1 = Market::where('status','Active')->get();
+        
+        }else{
+            $data1 = Market::where('user_id',$user)->where('status','Active')->get();
+
+        }
         return view("back_end.product.create", compact('data', 'data1'));
     }
     function edit($id)
     {
         $data = Product::find($id);
         $data1 = Category::all();
-        $data2 = Market::all();
+        $roles = Auth::user()->roles->first();
+        $user = Auth::user()->id;
+        if($roles->name == 'Admin')
+        {
+            $data2 = Market::where('status','Active')->get();
+        
+        }else{
+            $data2 = Market::where('user_id',$user)->where('status','Active')->get();
+
+        }
+
         $data3 = Productgallery::where('product_id',$data->id)->get();
         return view("back_end.product.edit", compact('data', 'data1', 'data2','data3'));
     }

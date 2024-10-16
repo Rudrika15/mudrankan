@@ -10,6 +10,17 @@ use Carbon\Carbon;
 
 class VoucharmasterController extends Controller
 {
+    
+    function __construct()
+    {
+        $this->middleware('permission:voucharmaster-index' , ['only' => ['index']]);
+        $this->middleware('permission:voucharmaster-create' , ['only' => ['create','voucharmaster_code']]);
+        $this->middleware('permission:voucharmaster-edit' , ['only' => ['edit','edit_code']]);
+        $this->middleware('permission:voucharmaster-delete' , ['only' => ['voucharmasterdelete']]);
+
+    }
+
+    
     //
     function index()
     {

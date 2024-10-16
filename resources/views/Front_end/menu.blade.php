@@ -44,7 +44,7 @@
                             <hr class="dropdown-divider">
                             @auth
                             <a class="nav-link text-uppercase text-danger" href="{{route('front_end.myprofile',Auth::user()->id)}}">My Profile</a>
-                            @role('seller')
+                            @role('Seller')
                             <a class="nav-link text-uppercase text-danger" href="{{route('home.index')}}">My Store</a>
                             @endrole
                             <a class="nav-link text-uppercase text-danger" href="{{route('front_end.logout')}}">logout</a>

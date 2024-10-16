@@ -8,6 +8,16 @@ use App\Models\Optiongroup;
 
 class OptiongroupController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:optiongroup-index',['only' => ['index']]);
+        $this->middleware('permission:optiongroup-create',['only' => ['create','optiongroup_code']]);
+        $this->middleware('permission:optiongroup-edit',['only' => ['edit','edit_code']]);
+        $this->middleware('permission:optiongroup-delete',['only' => ['optiongroupdelete']]);
+
+    }
+
     //
     function index()
     {

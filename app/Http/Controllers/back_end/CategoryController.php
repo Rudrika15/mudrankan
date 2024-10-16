@@ -10,9 +10,17 @@ use DataTables;
 
 class CategoryController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:category-index', ['only' => ['index']]);
+        $this->middleware('permission:category-create', ['only' => ['create', 'category_code']]);
+        $this->middleware('permission:category-edit', ['only' => ['edit', 'edit_code']]);
+        $this->middleware('permission:category-delete', ['only' => ['catdelete']]);
+    }
+
     public function index()
     {
-        $data = Category::where('status','Active')->simplePaginate(0);
+        $data = Category::where('status', 'Active')->simplePaginate(0);
         return view("back_end.category.index", compact('data'));
     }
     function create()
@@ -44,12 +52,11 @@ class CategoryController extends Controller
     function catdelete($id)
     {
         $data = Category::find($id);
-        if($data){
+        if ($data) {
             $data->status = 'Deleted';
             $data->save();
             return redirect("backend/category/show")
-            ->with('success', 'data deleted successfully');
-
+                ->with('success', 'data deleted successfully');
         }
         return redirect("backend/category/show")
             ->with('error', 'Field not found');
