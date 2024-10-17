@@ -1,9 +1,9 @@
 @extends("Front_end.Layouts.userside")
 
 @section('content')
-<div class="py-5">
+<div class="container py-5">
 {{-- <main class="login-form"> --}}
-    <div class="container p-5 shadow mb-5 bg-white rounded" style="max-width: 600px;">
+    <div class="container p-5 shadow mb-5 bg-white rounded" style="max-width: 400px;">
         <h1 class="text-center mb-4">
             <i class="fa fa-lock fa-2x"></i>
             <span class="d-block mt-2">Reset Password</span>
@@ -33,7 +33,7 @@
   
                                 <label for="email_address" class="form-label">E-Mail Address</label>
     
-                                    <input type="text" id="email_address" class="form-control" name="email" required autofocus>
+                                    <input type="email" id="email_address" class="form-control" name="email" required autofocus>
   
                                     @if ($errors->has('email'))
   

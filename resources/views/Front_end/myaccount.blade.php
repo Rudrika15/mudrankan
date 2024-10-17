@@ -35,9 +35,8 @@
 
                          <form action="{{route('front_end.logincodee')}}" method="post">
                               @csrf
-
                               <div class="mb-3 ">
-                                   <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                   <label for="exampleInputEmail1" class="form-label">E-Mail Address</label>
                                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
                               </div>
                               <div class="mb-3">
@@ -75,7 +74,7 @@
                               </div>
                          </div> --}}
                          <div class="text-center py-2"></div>
-                         <a class="proname" href="{{route('front_end.register')}}">Create account</a>
+                         {{-- <a class="proname" href="{{route('front_end.register')}}">Create account</a> --}}
                     {{-- </div> --}}
                </div>
           {{-- </div>

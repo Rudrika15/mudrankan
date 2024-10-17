@@ -23,15 +23,15 @@ use App\Models\Order;
 use App\Models\Review;
 use App\Models\Slide;
 use App\Models\State;
-use Hash;
-use DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
 use Carbon\Carbon;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 // use Illuminate\Hashing\HashManager;
 class HomeController extends Controller
@@ -80,7 +80,7 @@ class HomeController extends Controller
             $product = Product::where('status','Active')->get();
         } else {
             $product = Product::where('category', '=', $id)->where('status','Active')->get();
-        }
+        }   
         return view('Front_end.products', compact('product', 'pro', 'wishlist'));
     }
 
@@ -307,7 +307,7 @@ class HomeController extends Controller
     {
         $request->validate([
 
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:users,email',
 
         ]);
         $token = Str::random(64);
@@ -339,7 +339,7 @@ class HomeController extends Controller
     {
 
         $request->validate([
-            'email' => 'required|email|exists:users',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required'
         ]);

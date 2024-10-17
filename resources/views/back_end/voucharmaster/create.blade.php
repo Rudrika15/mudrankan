@@ -40,8 +40,8 @@ Vouchar Create
     </div>
     
     <div class="mb-3 mt-3">
-      <label for="vouchar_prize">Vouchar Prize:</label>
-      <input type="text" class="form-control" id="vouchar_prize" placeholder="Enter vouchar prize" name="vouchar_prize">
+      <label for="vouchar_prize">Vouchar Price:</label>
+      <input type="text" class="form-control" id="vouchar_prize" placeholder="Enter vouchar price" name="vouchar_prize">
     </div>
      
     

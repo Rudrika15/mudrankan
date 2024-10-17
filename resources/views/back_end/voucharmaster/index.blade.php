@@ -27,7 +27,7 @@ Vouchar show
     <thead>
       <tr>
         <th>Vouchar Name</th>
-        <th>Vouchar Prize</th>
+        <th>Vouchar Price</th>
         <th>Vouchar Expiry</th>
         <th>Vouchar Associated Mobile</th>
         <th>Quantity</th>
