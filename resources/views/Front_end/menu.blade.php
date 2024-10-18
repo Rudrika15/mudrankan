@@ -25,6 +25,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="menu3 navbar-nav ms-auto mb-2 mb-lg-0">
+                    
                     <li class="nav-item">
                         <a class="nav-link active text-uppercase" aria-current="page" href="{{route('front_end.index')}}">home</a>
                     </li>
@@ -32,9 +33,8 @@
                         <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.products')}}">products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.products')}}">coupon</a>
+                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.vouchar')}}">vouchar</a>
                     </li>
-
                     @foreach($categories as $category)
                     <li class="nav-item">
                         <a class="nav-link text-uppercase" href="{{route('front_end.category')}}/{{$category->id}}">{{$category->name}} </a>

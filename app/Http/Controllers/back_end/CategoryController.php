@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Market;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -25,22 +27,43 @@ class CategoryController extends Controller
     }
     function create()
     {
-        return view("back_end.category.create");
+        $user = Auth::user()->id;
+        $roles = Auth::user()->roles->first();
+        if($roles->name == 'Admin')
+        {
+            $market =Market::where('status','Active')->get();
+
+        }else{
+            $market =Market::where('user_id',$user)->where('status','Active')->get();
+        }
+
+        return view("back_end.category.create",compact('market'));
     }
     function edit($id)
     {
+        $user = Auth::user()->id;
+        $roles = Auth::user()->roles->first();
+        if($roles->name == 'Admin')
+        {
+            $market =Market::where('status','Active')->get();
+
+        }else{
+            $market =Market::where('user_id',$user)->where('status','Active')->get();
+        }        
         $data = Category::find($id);
-        return view("back_end.category.edit", compact('data'));
+        return view("back_end.category.edit", compact('data','market'));
     }
     public function category_code(Request $request)
     {
         $request->validate([
             'name' => 'required',
+            'market_id' => 'required',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $category = new Category();
         $category->name = $request->name;
+        $category->market_id = $request->market_id;
         $category->description = $request->description;
         $image = $request->image;
         $category->image = time() . '.' . $request->image->extension();
@@ -65,12 +88,14 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'market_id' => 'required',
             'description' => 'required',
             // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $id = $request->id;
         $category = Category::find($id);
         $category->name = $request->name;
+        $category->market_id = $request->market_id;
         $category->description = $request->description;
 
         if ($request->image) {

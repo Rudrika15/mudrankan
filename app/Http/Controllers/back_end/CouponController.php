@@ -30,6 +30,14 @@ class CouponController extends Controller
     {
         $userId = Auth::user()->id;
         $roles = Auth::user()->roles->first();
+        $expiredCoupons = Coupon::whereDate('expires_at', '<=', Carbon::today())
+        ->where('status', 'Active')
+        ->get();
+
+        foreach ($expiredCoupons as $coupon) {
+            $coupon->status = "Inactive";
+            $coupon->save();
+        }
         if($roles->name == 'Admin')
         {
             $data = Coupon::whereDate('expires_at', '>=', Carbon::today()) 
@@ -162,12 +170,22 @@ class CouponController extends Controller
     }
     function edit($id)
     {
-
         $user = Auth::user()->id;
+        $roles = Auth::user()->roles->first();
+        if($roles->name == 'Admin')
+        {
+            $products = Product::where('status','Active')->get();
+            $markets = Market::where('status','Active')->get();
+
+
+        }else{
+            $products = Product::where('user_id', $user)->where('status','Active')->get();
+            $markets = Market::where('user_id', $user)->where('status','Active')->get();
+
+        }
+
 
         $coupon = Coupon::findOrFail($id);
-        $products = Product::where('user_id', $user)->get();
-        $markets = Market::where('user_id', $user)->get();
         $categories = Category::all();
         return view('back_end.coupon.edit', compact('coupon', 'products', 'markets', 'categories'));
     }
@@ -231,7 +249,7 @@ class CouponController extends Controller
     {
         $data = Coupon::find($id);
         if($data){
-            $data->status = "Deleted";
+            $data->status = "Inactive";
             $data->save();
             return redirect("backend/coupon/show")
             ->with('success', 'Coupon deleted successfully');

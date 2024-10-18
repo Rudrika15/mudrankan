@@ -23,6 +23,7 @@ use App\Models\Order;
 use App\Models\Review;
 use App\Models\Slide;
 use App\Models\State;
+use App\Models\Voucharmaster;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -434,6 +435,7 @@ class HomeController extends Controller
 
     function cartcode(Request $request, $id)
     {
+    
         if (!Auth::check()) {
             return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
         }
@@ -453,13 +455,6 @@ class HomeController extends Controller
             }
             $cart->save();
         }
-
-        // $cart->save();
-        // $cart =new Cart();        
-        // $cart->product_id = $id;
-        // $cart->user_id = $user->id;
-        // $cart->quantity = 1;
-        // $cart->save();
 
         $product = Product::find($id);
         $id = $product->id;
@@ -785,5 +780,103 @@ class HomeController extends Controller
         }
         $user->save();
         return redirect()->back()->with('success', 'Profile Updated successfully');
+    }
+
+
+    function vouchar(){
+        $vouchars = Voucharmaster::where('status','Active')->get();
+        return view('Front_end.vouchar',compact('vouchars'));
+    }
+
+    function vouchardetail($id){
+        $vouchars = Voucharmaster::find($id);
+        return view('Front_end.vouchardetail',compact('vouchars'));
+
+
+    }
+    // function voucharcartcode(Request $request, $id)
+    // {
+    
+    //     if (!Auth::check()) {
+    //         return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
+    //     }
+
+    //     $user = Auth::user();
+    //     $quantity = $request->input('quantity', 1);
+    //     $action = $request->input('action');
+    //     if ($action === 'cart' || $action === 'buy_now') {
+    //         $cart = Cart::where('vouchar_id', $id)->where('user_id', $user->id)->first();
+    //         if ($cart) {
+    //             $cart->quantity += $quantity;
+    //         } else {
+    //             $cart = new Cart();
+    //             $cart->vouchar_id = $id;
+    //             $cart->user_id = $user->id;
+    //             $cart->quantity = $quantity;
+    //         }
+    //         $cart->save();
+    //     }
+
+    //     $vouchar = Voucharmaster::find($id);
+    //     $id = $vouchar->id;
+    //     $name = $vouchar->vouchar_name;
+    //     $image = $vouchar->vouchar_image;
+    //     $price = $vouchar->vouchar_price;
+    //     $cart = session()->get('cart', []);
+
+    //     if (isset($cart[$id])) {
+    //         $cart[$id]['quantity']++;
+    //     } else {
+    //         $cart[$id] = [
+    //             "vouchar_id" => $vouchar->id,
+    //             "name" => $name,
+    //             "image" => $image,
+    //             "price" => $price,
+    //             "quantity" => 1
+    //         ];
+    //     }
+
+    //     session()->put('cart', $cart);
+
+    //     return redirect("/viewcart")->with('success', 'Product Added to the Cart successfully');;
+    // }
+    public function checkPrice(Request $request)
+    {
+        $vouchar = Voucharmaster::find($request->vouchar_id);
+
+        if (!$vouchar) {
+            return response()->json(['error' => 'Vouchar not found'], 404);
+        }
+
+        return response()->json(['price' => $vouchar->vouchar_price]);
+    }
+
+    // Function for zero price vouchers
+    public function zeroprice()
+    {
+    return "hi";
+        // Handle logic for zero-price vouchar
+        // return view('front_end.zeroprice');
+    }
+
+    // Function for payment completion and redirect for non-zero priced vouchers
+    public function paymentComplete(Request $request)
+    {
+        $vouchar = Voucharmaster::find($request->vouchar_id);
+
+        if (!$vouchar) {
+            return response()->json(['error' => 'Vouchar not found'], 404);
+        }
+
+        // Save payment details, mark vouchar as purchased, etc.
+
+        return response()->json(['success' => true]);
+    }
+
+    // Function to handle redirect after payment
+    public function price()
+    {
+        // Handle logic after successful payment
+        return view('front_end.price');
     }
 }

@@ -37,6 +37,16 @@ Category Create
       <label for="name">{{__('name')}}:</label>
       <input type="text" class="form-control" id="name" placeholder="{{__('Enter Name')}}" name="name">
     </div>
+
+    <div class="mb-3 mt-3">
+      <label for="market">{{__('Market')}}:</label>
+      <select class="form-control" id="market_id" name="market_id" multiple>
+        @foreach($market as $data2)
+        <option value="{{$data2->id}}">{{$data2->name}}</option>
+        @endforeach
+      </select>
+    </div>
+
     <div class="mb-3">
       <label for="desciption">{{__('description')}}:</label>
       <textarea class="form-control" id="description" placeholder="{{__('Enter description')}}" name="description"></textarea>

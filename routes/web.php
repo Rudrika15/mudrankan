@@ -65,6 +65,15 @@ Route::get('/wishlist', [HomeController::class, "wishlist"])->name("front_end.wi
 Route::post('/registercode', [HomeController::class, "registercode"])->name("front_end.registercode");
 Route::post('/logincode', [HomeController::class, "logincode"])->name("front_end.logincode");
 Route::post('/logincodee', [HomeController::class, "logincodee"])->name("front_end.logincodee");
+Route::get('/vouchar', [HomeController::class, "vouchar"])->name("front_end.vouchar");
+Route::get('/vouchar/detail/{id}', [HomeController::class, "vouchardetail"])->name("front_end.vouchar_detail");
+Route::post('/voucharsave', [HomeController::class, "voucharsave"])->name("front_end.voucharsave");
+// Route::get('/viewvoucharcart', [HomeController::class, "viewcart"])->name("front_end.viewcart");
+Route::post('/check-vouchar-price', [HomeController::class, 'checkPrice'])->name('check.vouchar.price');
+Route::get('/zeroprice', [HomeController::class, 'zeroprice'])->name('zeroprice');
+Route::post('/payment-complete', [HomeController::class, 'paymentComplete'])->name('payment.complete');
+Route::get('/price', [HomeController::class, 'price'])->name('price');
+
 
 //forgot password
 Route::get('forget-password', [HomeController::class, 'showForgetPasswordForm'])->name('forget.password.get');
