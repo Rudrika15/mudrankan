@@ -15,11 +15,14 @@ use App\Models\Checkout;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\VoucherPurchased;
+use App\Models\AllPayment;
 use App\Models\AskQuestion;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\PurchasedVouchar;
 use App\Models\Review;
 use App\Models\Slide;
 use App\Models\State;
@@ -34,6 +37,7 @@ use Whoops\Run;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 // use Illuminate\Hashing\HashManager;
 class HomeController extends Controller
 {
@@ -43,14 +47,14 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if ($id == 0) {
-            $product = Product::where('status','Active')->get();
+            $product = Product::where('status', 'Active')->get();
         } else {
-            $product = Product::where('category', '=', $id)->where('status','Active')->get();
+            $product = Product::where('category', '=', $id)->where('status', 'Active')->get();
         }
-        $pro = Product::inRandomOrder()->limit(4)->where('status','Active')->get();
+        $pro = Product::inRandomOrder()->limit(4)->where('status', 'Active')->get();
         $cat = Category::inRandomOrder()->limit(4)->get();
-        $slide = Slide::inRandomOrder()->limit(4)->where('enabled','on')->get();
-        $bottomslide = Slide::inRandomOrder()->limit(4)->where('enabled','on')->get();
+        $slide = Slide::inRandomOrder()->limit(4)->where('enabled', 'on')->get();
+        $bottomslide = Slide::inRandomOrder()->limit(4)->where('enabled', 'on')->get();
 
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -69,7 +73,7 @@ class HomeController extends Controller
     // product view
     function products($id = 0)
     {
-        
+
         $user = Auth::user();
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -78,10 +82,10 @@ class HomeController extends Controller
         }
         $pro = Product::all()->first();
         if ($id == 0) {
-            $product = Product::where('status','Active')->get();
+            $product = Product::where('status', 'Active')->get();
         } else {
-            $product = Product::where('category', '=', $id)->where('status','Active')->get();
-        }   
+            $product = Product::where('category', '=', $id)->where('status', 'Active')->get();
+        }
         return view('Front_end.products', compact('product', 'pro', 'wishlist'));
     }
 
@@ -91,7 +95,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $product = Product::find($id);
         $review = Review::all();
-        $pro = Product::where('status','Active')->get()->take(4);
+        $pro = Product::where('status', 'Active')->get()->take(4);
 
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -159,7 +163,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $category = Category::all();
-        $product = Product::where('category', $id)->where('status','Active')->get();
+        $product = Product::where('category', $id)->where('status', 'Active')->get();
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
         } else {
@@ -256,7 +260,7 @@ class HomeController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            
+
             if (Auth::user()->status === 'Deleted') {
                 // Log out the user and redirect to the login page with a message
                 Auth::logout();
@@ -355,7 +359,7 @@ class HomeController extends Controller
         if (!$updatePassword) {
             return back()->withInput()->with('error', 'Invalid token!');
         }
-        
+
         $user = User::where('email', $request->email)
             ->update(['password' => Hash::make($request->password)]);
 
@@ -429,13 +433,13 @@ class HomeController extends Controller
         }
         // 
 
-        $random = Product::where('status','Active')->get()->random(8);
+        $random = Product::where('status', 'Active')->get()->random(8);
         return view("Front_end.viewcart", compact('carts', 'random', 'total', 'wishlist'));
     }
 
     function cartcode(Request $request, $id)
     {
-    
+
         if (!Auth::check()) {
             return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
         }
@@ -514,14 +518,14 @@ class HomeController extends Controller
             //     ->where('user_id', '=', $user_id)->get();
             // // return $cart;
             $carts = Cart::with('product')->where('user_id', $user->id)->get();
-            $address = Address::where('user_id',$user->id)->get();
+            $address = Address::where('user_id', $user->id)->get();
 
             $total = $carts->reduce(function ($carry, $carts) {
                 return $carry + ($carts->product->price * $carts->quantity);
             }, 0);
             $totalquantity = $carts->sum('quantity');
             // $product = Product::where('user_id',Auth::user()->id)->get();
-            return view("Front_end.checkout", compact('add', 'carts', 'total', 'totalquantity','address'));
+            return view("Front_end.checkout", compact('add', 'carts', 'total', 'totalquantity', 'address'));
         } else {
             return redirect("/myaccount");
         }
@@ -590,7 +594,7 @@ class HomeController extends Controller
             $validProducts = Product::whereIn('id', $product_id)
                 ->where('coupon_id', $discount->id)
                 ->get();
-                
+
             if ($validProducts->isEmpty()) {
                 return response()->json([
                     'success' => false,
@@ -783,20 +787,20 @@ class HomeController extends Controller
     }
 
 
-    function vouchar(){
-        $vouchars = Voucharmaster::where('status','Active')->get();
-        return view('Front_end.vouchar',compact('vouchars'));
+    function vouchar()
+    {
+        $vouchars = Voucharmaster::where('status', 'Active')->get();
+        return view('Front_end.vouchar', compact('vouchars'));
     }
 
-    function vouchardetail($id){
+    function vouchardetail($id)
+    {
         $vouchars = Voucharmaster::find($id);
-        return view('Front_end.vouchardetail',compact('vouchars'));
-
-
+        return view('Front_end.vouchardetail', compact('vouchars'));
     }
     // function voucharcartcode(Request $request, $id)
     // {
-    
+
     //     if (!Auth::check()) {
     //         return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
     //     }
@@ -840,43 +844,66 @@ class HomeController extends Controller
 
     //     return redirect("/viewcart")->with('success', 'Product Added to the Cart successfully');;
     // }
+
     public function checkPrice(Request $request)
     {
-        $vouchar = Voucharmaster::find($request->vouchar_id);
+        $voucharId = $request->input('vouchar_id');
+        $vouchar = Voucharmaster::find($voucharId);
 
-        if (!$vouchar) {
-            return response()->json(['error' => 'Vouchar not found'], 404);
+        if ($vouchar) {
+            return response()->json(['price' => $vouchar->vouchar_price]);
+        } else {
+            return response()->json(['error' => 'Voucher not found'], 404);
         }
-
-        return response()->json(['price' => $vouchar->vouchar_price]);
     }
 
-    // Function for zero price vouchers
-    public function zeroprice()
+
+    public function saveVouchar(Request $request)
     {
-    return "hi";
-        // Handle logic for zero-price vouchar
-        // return view('front_end.zeroprice');
+        $voucharId = $request->input('vouchar_id');
+        $vouchar = Voucharmaster::find($voucharId);
+        if ($vouchar) {
+
+            $purchasedVouchar = new PurchasedVouchar();
+            $purchasedVouchar->user_id = Auth::user()->id;
+            $purchasedVouchar->vouchar_id = $voucharId;
+            $purchasedVouchar->date = now();
+            $purchasedVouchar->price = $vouchar->vouchar_price;
+            $purchasedVouchar->save();
+
+
+
+            Mail::to(Auth::user()->email)->send(new VoucherPurchased($vouchar));
+
+            return response()->json(['success' => 'Voucher purchased successfully!']);
+        } else {
+            return response()->json(['error' => 'Voucher not found.']);
+        }
     }
 
-    // Function for payment completion and redirect for non-zero priced vouchers
     public function paymentComplete(Request $request)
     {
-        $vouchar = Voucharmaster::find($request->vouchar_id);
+        $voucharId = $request->input('vouchar_id');
+        $vouchar = Voucharmaster::find($voucharId);
+        $purchasedVouchar = new PurchasedVouchar();
+        $purchasedVouchar->user_id = Auth::user()->id;
+        $purchasedVouchar->vouchar_id = $voucharId;
+        $purchasedVouchar->date = now();
+        $purchasedVouchar->price = $vouchar->vouchar_price;
+        $purchasedVouchar->save();
 
-        if (!$vouchar) {
-            return response()->json(['error' => 'Vouchar not found'], 404);
-        }
 
-        // Save payment details, mark vouchar as purchased, etc.
 
-        return response()->json(['success' => true]);
-    }
+        $payment = new AllPayment();
+        $payment->memberId = Auth::user()->id;
+        $payment->razorpay_payment_id = $request->input('razorpay_payment_id');
+        $payment->date = now();
+        $payment->amount = Voucharmaster::find($voucharId)->vouchar_price;
+        $payment->save();
 
-    // Function to handle redirect after payment
-    public function price()
-    {
-        // Handle logic after successful payment
-        return view('front_end.price');
+
+        Mail::to(Auth::user()->email)->send(new VoucherPurchased($vouchar));
+
+        return response()->json(['success' => 'Payment successful! Voucher saved.']);
     }
 }

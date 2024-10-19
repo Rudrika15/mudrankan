@@ -70,10 +70,8 @@ Route::get('/vouchar/detail/{id}', [HomeController::class, "vouchardetail"])->na
 Route::post('/voucharsave', [HomeController::class, "voucharsave"])->name("front_end.voucharsave");
 // Route::get('/viewvoucharcart', [HomeController::class, "viewcart"])->name("front_end.viewcart");
 Route::post('/check-vouchar-price', [HomeController::class, 'checkPrice'])->name('check.vouchar.price');
-Route::get('/zeroprice', [HomeController::class, 'zeroprice'])->name('zeroprice');
 Route::post('/payment-complete', [HomeController::class, 'paymentComplete'])->name('payment.complete');
-Route::get('/price', [HomeController::class, 'price'])->name('price');
-
+Route::post('/save-voucher', [HomeController::class, 'saveVouchar'])->name('save.vouchar');
 
 //forgot password
 Route::get('forget-password', [HomeController::class, 'showForgetPasswordForm'])->name('forget.password.get');

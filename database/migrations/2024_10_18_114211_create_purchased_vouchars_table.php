@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('purchased_vouchars', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('voucher_id');
+            $table->integer('vouchar_id');
             $table->date('date');
             $table->integer('price');
             $table->timestamps();

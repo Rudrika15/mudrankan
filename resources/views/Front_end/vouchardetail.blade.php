@@ -31,7 +31,9 @@
                  <!-- Form for adding to cart -->
                       <div class="row">
                          <div class="col-md-12">    
-                             <button  id="buy-now"  type="submit"  class="btn btn-warning form-control">Buy it Now</button>
+                            @if (Auth::user())
+                            <button  id="buy-now"  type="submit"  class="btn btn-warning form-control">Buy it Now</button>
+                            @endif
                          </div>
                          </div>
              </div>
@@ -74,33 +76,58 @@
 </div>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
+<div id="message"></div>
 <script>
-    document.getElementById('buy-now').addEventListener('click', function() {
-        var voucharId = document.getElementById('vouchar_id').value;
+$(document).ready(function() {
+    $('#buy-now').on('click', function() {
+        var voucharId = $('#vouchar_id').val();
 
-        // AJAX to check the price of the vouchar
+        // AJAX to check the price of the voucher
         $.ajax({
-            url: '{{ route("check.vouchar.price") }}',  
+            url: '{{ route("check.vouchar.price") }}',
             method: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',
                 vouchar_id: voucharId
             },
+            
             success: function(response) {
                 if (response.price == '0') {
-                    window.location.href = '{{ route("zeroprice") }}';
+                    // If the price is zero, save voucher directly in the purchased_vouchars table
+                    $.ajax({
+                        url: '{{ route("save.vouchar") }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            vouchar_id: voucharId
+                        },
+                        success: function(result) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Voucher Purchased Successfully!',
+                                text: result.success
+                            });
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Something went wrong while saving the voucher.'
+                            });
+                        }
+                    });
                 } else {
                     // If the price is not zero, initiate Razorpay payment
                     var options = {
-                        "key": "{{ env('RAZORPAY_KEY') }}", // Your Razorpay key
-                        "amount": response.price * 100, // Convert to paise
+                        "key": "{{ env('RAZORPAY_KEY') }}",
+                        "amount": response.price * 100,  // Amount in paise
                         "currency": "INR",
                         "name": "Voucher Purchase",
-                        "description": "Buy Vouchar",
+                        "description": "Buy Voucher",
                         "handler": function (response) {
-                            // On successful payment
+                            // On successful payment, save the payment details and voucher
                             $.ajax({
-                                url: '{{ route("payment.complete") }}',  // Route to handle payment success
+                                url: '{{ route("payment.complete") }}',
                                 method: 'POST',
                                 data: {
                                     _token: '{{ csrf_token() }}',
@@ -108,8 +135,18 @@
                                     vouchar_id: voucharId
                                 },
                                 success: function(result) {
-                                    // Redirect to the price function
-                                    window.location.href = '{{ route("price") }}';
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Payment Successful!',
+                                        text: 'Voucher purchased successfully!'
+                                    });                                
+                                },
+                                error: function(error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Payment Failed!',
+                                        text: 'Payment failed. Please try again.'
+                                    });
                                 }
                             });
                         },
@@ -120,8 +157,18 @@
                     var rzp1 = new Razorpay(options);
                     rzp1.open();
                 }
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Unable to check the voucher price. Please try again later.'
+                });            
             }
         });
     });
+});
+
 </script>
+
 @endsection
