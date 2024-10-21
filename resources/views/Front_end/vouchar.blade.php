@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container pt-5 mb-4">
-    <h3 class=" p-5 text text-center">Vouchars</h3>
+    <h3 class=" p-5 text text-center">Vouchers</h3>
 
     <div class="row text-center">
     @foreach ($vouchars as $vouchar)

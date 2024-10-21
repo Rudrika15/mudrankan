@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <link href="{{asset('assets/css/adminstyle.css')}}" rel="stylesheet"></head>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
 <body style="background-color: #f6f9ff">
 
@@ -154,24 +155,24 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    $("#myDataTable").DataTable({
-      "scrollY": "400px", 
-        "scrollX": true,    
-        "paging": true,
-        "searching": true,
-        "autoWidth": false, 
-        "columnDefs": [
-            { "width": "20%", "targets": 0 }, 
-            { "width": "40%", "targets": 1 },
-            { "width": "20%", "targets": 2 }
-        ],
-    });
+$(document).ready(function() {
+  $("#myDataTable").DataTable({
+    "scrollY": "400px", 
+    "scrollX": true,    
+    "paging": true,
+    "searching": true,
+    "autoWidth": false, 
+    "columnDefs": [
+      { "width": "20%", "targets": 0 }, 
+      { "width": "40%", "targets": 1 },
+      { "width": "20%", "targets": 2 }
+    ],
   });
+});
 </script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-  AOS.init();
+AOS.init();
 </script>
 </body>
 

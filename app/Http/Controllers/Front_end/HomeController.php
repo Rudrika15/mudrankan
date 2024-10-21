@@ -203,7 +203,7 @@ class HomeController extends Controller
     function wishlistcode(Request $request)
     {
         if (!Auth::check()) {
-            return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
+            return redirect('/myaccount')->with('error', 'Please log in to add products to the wishlist.');
         }
         $user = Auth::user();
         // $string = exec('getmac');
@@ -218,7 +218,7 @@ class HomeController extends Controller
     function wishlist()
     {
         if (!Auth::check()) {
-            return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
+            return redirect('/myaccount')->with('error', 'Please log in to open your wishlist.');
         }
         $user = Auth::user();
         $wishlist = Wishlist::with('product')->where('user_id', $user->id)->get();
@@ -265,7 +265,7 @@ class HomeController extends Controller
                 // Log out the user and redirect to the login page with a message
                 Auth::logout();
                 return redirect('/myaccount')
-                    ->withSuccess('Your account is deleted. Please Register.');
+                    ->withError('Your account is deleted. Please Register.');
             }
             if (Auth::user()->hasRole('Admin')) {
                 return redirect()->to('backend/home') // Redirect to admin home if user is Admin
@@ -405,7 +405,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if (!Auth::check()) {
-            return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
+            return redirect('/myaccount')->with('error', 'Please log in to open your cart.');
         }
         if ($user) {
             $wishlist = Wishlist::where('user_id', $user->id)->get();
@@ -441,7 +441,7 @@ class HomeController extends Controller
     {
 
         if (!Auth::check()) {
-            return redirect('/myaccount')->with('error', 'Please log in to add products to the cart.');
+            return redirect('/myaccount')->with('error', 'Please log in to purchase the product.');
         }
 
         $user = Auth::user();
@@ -869,6 +869,7 @@ class HomeController extends Controller
             $purchasedVouchar->vouchar_id = $voucharId;
             $purchasedVouchar->date = now();
             $purchasedVouchar->price = $vouchar->vouchar_price;
+            $purchasedVouchar->is_used = false;
             $purchasedVouchar->save();
 
 
@@ -883,17 +884,14 @@ class HomeController extends Controller
 
     public function paymentComplete(Request $request)
     {
+        if (!$request->has('razorpay_payment_id')) {
+            return response()->json(['error' => 'Payment failed!'], 400);
+        }
+
         $voucharId = $request->input('vouchar_id');
         $vouchar = Voucharmaster::find($voucharId);
-        $purchasedVouchar = new PurchasedVouchar();
-        $purchasedVouchar->user_id = Auth::user()->id;
-        $purchasedVouchar->vouchar_id = $voucharId;
-        $purchasedVouchar->date = now();
-        $purchasedVouchar->price = $vouchar->vouchar_price;
-        $purchasedVouchar->save();
-
-
-
+        
+        
         $payment = new AllPayment();
         $payment->memberId = Auth::user()->id;
         $payment->razorpay_payment_id = $request->input('razorpay_payment_id');
@@ -902,8 +900,39 @@ class HomeController extends Controller
         $payment->save();
 
 
+        
+        $purchasedVouchar = new PurchasedVouchar();
+        $purchasedVouchar->user_id = Auth::user()->id;
+        $purchasedVouchar->vouchar_id = $voucharId;
+        $purchasedVouchar->date = now();
+        $purchasedVouchar->price = $vouchar->vouchar_price;
+        $purchasedVouchar->is_used = false;
+        $purchasedVouchar->save();
+
+
         Mail::to(Auth::user()->email)->send(new VoucherPurchased($vouchar));
 
         return response()->json(['success' => 'Payment successful! Voucher saved.']);
+    }
+
+
+    public function validateVoucher($voucherId)
+    {
+        $purchasedVoucher = PurchasedVouchar::where('vouchar_id', $voucherId)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if (!$purchasedVoucher) {
+            return response()->json(['error' => 'Voucher not found'], 404);
+        }
+
+        if ($purchasedVoucher->is_used) {
+            return response()->json(['error' => 'This voucher has already been used'], 403);
+        }
+
+        $purchasedVoucher->is_used = true;
+        $purchasedVoucher->save();
+
+        return response()->json(['success' => 'Voucher validated successfully!']);
     }
 }

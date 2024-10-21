@@ -22,36 +22,44 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $data = Category::where('status', 'Active')->simplePaginate(0);
+        $user = auth()->user();
+
+        if ($user->hasRole('Admin')) {
+            $data = Category::where('status', 'Active')
+                ->simplePaginate(10);
+        } else {
+
+            $marketIds = Market::where('user_id', $user->id)->where('status', 'Active')->pluck('id');
+
+            $data = Category::where('status', 'Active')
+                ->where('market_id', $marketIds)
+                ->simplePaginate(10);
+        }
         return view("back_end.category.index", compact('data'));
     }
     function create()
     {
         $user = Auth::user()->id;
         $roles = Auth::user()->roles->first();
-        if($roles->name == 'Admin')
-        {
-            $market =Market::where('status','Active')->get();
-
-        }else{
-            $market =Market::where('user_id',$user)->where('status','Active')->get();
+        if ($roles->name == 'Admin') {
+            $market = Market::where('status', 'Active')->get();
+        } else {
+            $market = Market::where('user_id', $user)->where('status', 'Active')->get();
         }
 
-        return view("back_end.category.create",compact('market'));
+        return view("back_end.category.create", compact('market'));
     }
     function edit($id)
     {
         $user = Auth::user()->id;
         $roles = Auth::user()->roles->first();
-        if($roles->name == 'Admin')
-        {
-            $market =Market::where('status','Active')->get();
-
-        }else{
-            $market =Market::where('user_id',$user)->where('status','Active')->get();
-        }        
+        if ($roles->name == 'Admin') {
+            $market = Market::where('status', 'Active')->get();
+        } else {
+            $market = Market::where('user_id', $user)->where('status', 'Active')->get();
+        }
         $data = Category::find($id);
-        return view("back_end.category.edit", compact('data','market'));
+        return view("back_end.category.edit", compact('data', 'market'));
     }
     public function category_code(Request $request)
     {

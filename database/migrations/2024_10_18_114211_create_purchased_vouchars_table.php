@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('vouchar_id');
             $table->date('date');
             $table->integer('price');
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
         });
     }

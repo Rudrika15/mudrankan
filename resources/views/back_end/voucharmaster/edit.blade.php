@@ -32,7 +32,7 @@ Voucher Edit
       </div>
       @endif
 
-      <form action="{{ url('/backend/voucharmaster/edit_code') }}" method="post" enctype="multipart/form-data">>
+      <form action="{{ url('/backend/voucharmaster/edit_code') }}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
         <input type="hidden" id="id" name="id" value="{{ $voucharmaster->id }}">

@@ -21,4 +21,8 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function market()
+    {
+        return $this->belongsTo(Market::class);
+    }
 }

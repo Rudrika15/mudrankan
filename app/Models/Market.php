@@ -29,4 +29,8 @@ class Market extends Model
     {
         return $this->hasMany(Coupon::class);
     }
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'market_id');
+    }
 }

@@ -72,6 +72,7 @@ Route::post('/voucharsave', [HomeController::class, "voucharsave"])->name("front
 Route::post('/check-vouchar-price', [HomeController::class, 'checkPrice'])->name('check.vouchar.price');
 Route::post('/payment-complete', [HomeController::class, 'paymentComplete'])->name('payment.complete');
 Route::post('/save-voucher', [HomeController::class, 'saveVouchar'])->name('save.vouchar');
+Route::get('/validate-voucher/{voucherId}', [HomeController::class, 'validateVoucher']);
 
 //forgot password
 Route::get('forget-password', [HomeController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -159,7 +160,6 @@ Route::get('/Terms-of-service', function () {
 // });
 
 
-Route::get('/backend/home/{id?}', [HomeeController::class, 'index'])->name('home.index');
 
 // Route::group(['/backend/middleware' => ['guest']], function () {
 
@@ -176,6 +176,8 @@ Route::get('/backend/home/{id?}', [HomeeController::class, 'index'])->name('home
 
 Route::group(['middleware' => 'auth'], function () {
   
+Route::get('/backend/home/{id?}', [HomeeController::class, 'index'])->name('home.index');
+
 //logout
 Route::get('/backend/logout', [LogoutController::class, 'logout'])->name('logout');
 
