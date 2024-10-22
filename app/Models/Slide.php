@@ -23,4 +23,13 @@ class Slide extends Model
         'market_id',
         'enabled',
     ];
+    public function market()
+    {
+        return $this->belongsTo(Market::class, 'market_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

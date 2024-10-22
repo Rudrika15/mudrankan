@@ -33,4 +33,8 @@ class Market extends Model
     {
         return $this->hasMany(Category::class, 'market_id');
     }
+    public function slides()
+    {
+        return $this->hasMany(Slide::class, 'market_id');
+    }
 }

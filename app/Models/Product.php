@@ -47,4 +47,8 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function slides()
+    {
+        return $this->hasMany(Slide::class, 'product_id');
+    }
 }

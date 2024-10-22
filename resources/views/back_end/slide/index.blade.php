@@ -55,8 +55,8 @@ Slide show
               <td><img src="{{url('slidimg')}}/{{$data->image}}" class="img-thumbnail"
                   style="width: 100px; height: 100px; object-fit: cover; border-radius: 5px;"></td>
               <td>{{$data->image_fit}}</td>
-              <td>{{$data->pname}}</td>
-              <td>{{$data->mname}}</td>
+              <td>{{$data->product ? $data->product->name : '-'}}</td>
+              <td>{{$data->market ? $data->market->name : '-'}}</td>
               <td>{{$data->enabled}}</td>
 
               <td>

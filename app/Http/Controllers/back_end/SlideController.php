@@ -26,11 +26,25 @@ class SlideController extends Controller
     //
     function index()
     {
-        $data = Slide::join('products', 'products.id', '=', 'slides.product_id')->join('markets', 'markets.id', '=', 'slides.market_id')
-            ->get([
-                'slides.*', 'products.name as pname',
-                'slides.*', 'markets.name as mname'
-            ])->where('status','Active');
+        $user = auth()->user();
+
+        if ($user->hasRole('Admin')) {
+
+            $data = Slide::with(['market', 'product'])->where('status','Active')->simplePaginate(10);
+        
+        }else{
+           $marketIds = Market::where('user_id', $user->id)->where('status', 'Active')->pluck('id');
+    
+           $data = Slide::with(['market', 'product'])->where('status','Active')
+           ->where('market_id',$marketIds)
+           ->simplePaginate(10);
+        }
+        // $data = Slide::join('products', 'products.id', '=', 'slides.product_id')->join('markets', 'markets.id', '=', 'slides.market_id')
+        //     ->get([
+        //         'slides.*', 'products.name as pname',
+        //         'slides.*', 'markets.name as mname'
+        //     ])->where('status','Active');
+
         return view("back_end.slide.index", compact('data'));
     }
     function create()

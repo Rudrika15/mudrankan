@@ -129,6 +129,7 @@
                                         title: 'Payment Successful!',
                                         text: 'Voucher purchased successfully!'
                                     });                                
+                                    $buyNowButton.prop('disabled', false);
                                 },
                                 error: function(error) {
                                     Swal.fire({
@@ -136,6 +137,8 @@
                                         title: 'Payment Failed!',
                                         text: 'Payment failed. Please try again.'
                                     });
+                                    // $buyNowButton.prop('disabled', false);
+
                                 },
                             });
                         },
