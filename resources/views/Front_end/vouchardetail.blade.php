@@ -14,7 +14,7 @@
             <a href="#" class="text-dark" style="text-decoration: none;"> vouchar Detail </a>/
             <div class="row pt-3">
                 <div class="col md-12">
-                    <h2 class="p-1">Voucher Name: {{$vouchars->vouchar_name}}</h2>
+                    <h2 class="p-1">{{$vouchars->vouchar_name}}</h2>
                 </div>
                 <div class="col-md-12">
                     <div class="row">

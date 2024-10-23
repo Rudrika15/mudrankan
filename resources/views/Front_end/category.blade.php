@@ -108,7 +108,6 @@ $(document).ready(function() {
             icon.removeClass('active'); 
             icon.data('id', ''); 
             window.location.reload();
-
           }
           //  else {
           //   alert(response.error); 

@@ -33,7 +33,7 @@
                         <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.products')}}">products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.vouchar')}}">voucher</a>
+                        <a class="nav-link  text-uppercase" aria-current="page" href="{{route('front_end.vouchar')}}">vouchers</a>
                     </li>
                     @foreach($categories as $category)
                     <li class="nav-item">

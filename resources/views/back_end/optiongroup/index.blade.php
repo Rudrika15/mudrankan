@@ -25,25 +25,29 @@ Optiongroup show
         <table id="myDataTable" class="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col" width="100%">{{__('Name of Group')}}</th>
-              <th scope="col" width="100%">{{__('Options')}}</th>
+              {{-- <th scope="col" width="100%">Name of Group</th> 
+              <th class="d-flex justify-content-end" scope="col" width="100%">Options</th> --}}
+
+              <td><b>Name of Group</b></td>
+              <td class="d-flex justify-content-end"><b>Options</b></td>
+
             </tr>
           </thead>
           <tbody>
             @foreach ($data as $data)
             <tr>
               <td>{{$data->name}}</td>
-              <td>
+              <td class="d-flex justify-content-end">
                 <a href="{{ url('backend/optiongroup/edit',$data->id) }}" class="btn btn-bg-blue btn-sm btn-tooltip"><i
                     class="bi bi-pen" aria-hidden="true"></i></a>
+                &nbsp;
                 <button class="btn btn-bg-danger btn-sm btn-tooltip" onclick="deleteField({{ $data->id }})"><i
                     class="bi bi-trash" aria-hidden="true"></i></button>
                 {{-- <a href="{{ url('backend/optiongroup/delete',$data->id)}}"
                   class="btn btn-bg-danger btn-sm btn-tooltip"><i class="bi bi-trash" aria-hidden="true"></i></a> --}}
-                @endforeach
               </td>
+              @endforeach
             </tr>
-
           </tbody>
         </table>
       </div>
